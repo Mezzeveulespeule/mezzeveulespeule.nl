@@ -1,0 +1,7 @@
+{% load cms_tags %} {% load thumbnail %}
+
+<div style="margin-top: 5px;">
+    <a href="{{photo.get_link}}">
+        <img src="{% thumbnail photo.get_file_link 1000x150 autocrop %}" style="width: 100%; height: 100%; object-fit: contain;">
+    </a>
+</div>

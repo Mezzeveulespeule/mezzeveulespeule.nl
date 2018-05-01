@@ -1,0 +1,136 @@
+{% extends "base.html" %} {% load cms_tags %} {% load thumbnail %} {% block content %}
+<style>
+	.subfolder {
+		min-height: 100px;
+		display: flex;
+		width: 100%;
+		padding: 10px;
+	}
+
+	.subfolder a {
+		font-family: Blokletters-Viltstift;
+		font-size: 12px;
+		text-align: right;
+		flex: 1;
+
+		padding: 10px;
+	}
+
+	.subfolder img {
+		flex: 1;
+		object-fit: contain;
+		object-position: 0 0;
+	}
+
+	.photos {
+		width: 100%;
+	}
+
+	.photos {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+	.photo {
+		transition: 0.4s all;
+		cursor: pointer;
+		padding: 5px;
+		background-color: transparent;
+	}
+
+	.photo:hover {
+		z-index: 4;
+		transform: scale(1.2);
+	}
+
+	.big-photo {
+		display: none;
+		height: 80vh;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	.big-photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		display: block;
+	}
+
+	.stop-slideshow {
+		display: none;
+		width: 25px;
+		height: 25px;
+		right: 0;
+		top: 0;
+		position: absolute;
+		z-index: 100;
+	}
+
+	.stop-slideshow img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
+	.show-photos {
+		position: relative;
+	}
+
+	.slick-prev:before,
+	.slick-next:before {
+		color: black;
+	}
+
+	.slick-prev {
+		left: -10px;
+	}
+
+	.slick-next {
+		right: -10px;
+	}
+</style>
+<!-- Breadcrumbs -->
+
+<div class="breadcrumbs">
+	{% for breadcrumb in folder.get_breadcrumbs %} {% if not forloop.first %}» {% endif %}
+	<a href="{{breadcrumb.get_link}}">{{breadcrumb.get_name}}</a>
+	{% endfor %}
+</div>
+
+
+{% if folder.has_subfolders %}
+<!-- Show subfolders -->
+{% for subfolder in folder.get_subfolders %}
+<div class="subfolder">
+	<a href="{{subfolder.get_link}}">{{subfolder.get_name}}</a>
+	<img src="{% thumbnail subfolder.get_random_photo.get_file_link 1000x150 autocrop %}">
+</div>
+{% endfor %} {% else %}
+<!-- Show fotos -->
+
+<div class="show-photos">
+	<a href="#" class="stop-slideshow">
+		<img src="/media/img/close.png">
+	</a>
+	<div class="big-photos">
+		{% for photo in folder.get_photos %}
+		<div class="big-photo">
+			<img data-lazy="{{photo.get_image_link}}">
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="photos">
+		{% for photo in folder.get_photos %}
+		<div class="photo" data-id="{{forloop.counter0}}">
+			<img src="{% thumbnail photo.get_file_link 1000x150 autocrop %}">
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+
+{% endif %} {% endblock content %}

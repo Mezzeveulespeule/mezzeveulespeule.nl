@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+
+<h2>{{form.title}}</h2>
+
+<p>{{form.description}}</p>
+
+<form method="POST" class="django">
+{% csrf_token %}
+
+<table>
+{{form}}
+</table>
+
+<div class="button-wrapper">
+<button type="submit">Volgende</button>
+</div>
+</form>
+{% endblock content %}

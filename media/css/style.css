@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+    font-family: 'Blokletters-Viltstift';
+    src:url('/media/fonts/Blokletters-Viltstift.ttf.woff') format('woff'),
+        url('/media/fonts/Blokletters-Viltstift.ttf.svg#Blokletters-Viltstift') format('svg'),
+        url('/media/fonts/Blokletters-Viltstift.ttf.eot'),
+        url('/media/fonts/Blokletters-Viltstift.ttf.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Blokletters-Balpen';
+    src:url('/media/fonts/Blokletters-Balpen.ttf.woff') format('woff'),
+        url('/media/fonts/Blokletters-Balpen.ttf.svg#Blokletters-Balpen') format('svg'),
+        url('/media/fonts/Blokletters-Balpen.ttf.eot'),
+        url('/media/fonts/Blokletters-Balpen.ttf.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background: url('/media/img/background.jpg') no-repeat center top fixed;
+    background-size: cover;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.box {
+    border-style: solid;
+    border-width: 5px;
+    padding: 10px;
+    background-color:  rgba(255,255,255,0.85);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    margin: 10px 5px;
+}
+
+/* Header */
+header.box {
+    border-top-left-radius: 25px;
+    border-bottom-width: 0;
+    margin-top: 14px;
+    border-color:  #71BF43;
+}
+
+header .slogan {
+    position: absolute;
+}
+
+/* Header small screen */
+@media screen and (max-width: 900px) {
+    header .slogan {
+        display: none;
+    }
+
+    header .logo {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* Menu */
+nav.box {
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-color: #91268F;
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-width: 2px;
+    border-width: 0;
+    border-bottom: 2px solid transparent;
+
+}
+
+nav li.selected, nav li:hover {
+    border-bottom-color: inherit;
+}
+
+nav a {
+    vertical-align: -webkit-baseline-middle;
+    font-family: 'Blokletters-Viltstift', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    text-decoration: none;
+    color: inherit;
+}
+
+nav .facebook {
+    border-width: 0;
+}
+
+nav .facebook img {
+    vertical-align: bottom;
+}
+
+/* Carousel */
+section.carousel {
+    border-color: #DD6E1D;
+    border-bottom-width: 0;
+    border-top-width: 0;
+    padding: 0;
+}
+
+section.carousel img {
+    width: 100%;
+}
+
+/* Content */
+section.main {
+    border-color: #008FD4;
+    border-top-width: 0;
+    border-bottom-right-radius: 25px;
+    font-family: 'Blokletters-Balpen', sans-serif;
+    font-size: 12px;
+}
+
+article {
+    padding-right: 10px;
+}
+
+article h2 {
+    line-height: 1.5em;
+    font-family: 'Blokletters-Viltstift', sans-serif;
+    font-size: 15px;
+}
+
+section.main p {
+    margin: 1.6em 0;
+}
+
+.footer {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+/* Asides */
+aside {
+    width: 300px;
+    background: #FFFFFF;
+    border: solid 5px #E39F15;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    padding: 10px 10px 10px 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    clear: right;
+}
+
+aside h3 {
+    font-family: 'Blokletters-Viltstift', sans-serif;
+    color: #FFFFFF;
+    background-color: #91268F;
+    padding: 10px;
+    font-size: 15px;
+}
+
+aside p {
+    color: #FFFFFF;
+    background-color: #949599;
+    margin: 5px 0 !important;
+    padding: 10px;
+    line-height: 1.5em;
+}
+
+aside img {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Layout */
+.columns {
+    display: flex;
+}
+.columns article {
+    flex: 6;
+}
+
+.columns .asides {
+    flex: 3;
+}
+
+.logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.logos img {
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    margin: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.forms .description {
+    margin: 15px 0;
+}
+
+.field-wrapper {
+    margin: 10px 0;
+}
+
+.field-wrapper > label {
+    display: inline-block;
+    width: 40%;
+    height: 100%;
+}
+
+.field-wrapper ul, forms.django ul {
+    width: 40%;
+    display: inline-block;
+    list-style-type: none;
+}
+
+form.django input[type=text],
+form.django input[type=email],
+form.django input[type=date],
+form.django input[type=tel],
+form.django select,
+form.django textarea,
+.field-wrapper input[type=text],
+.field-wrapper input[type=email],
+.field-wrapper input[type=date],
+.field-wrapper input[type=tel],
+.field-wrapper select,
+.field-wrapper textarea {
+    box-shadow: 0 1px 0 #ffffff, inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #aaaaaa;
+    border-bottom-color: #cccccc;
+    border-radius: 2px;
+    padding: 6px 8px;
+    width: 40%;
+}
+
+form.django input[type=text],
+form.django input[type=email],
+form.django input[type=date],
+form.django input[type=tel],
+form.django select,
+form.django textarea {
+    width: 300px;
+}
+
+th {
+    height: 40px;
+    width: 300px;
+    text-align: left;
+    font-weight: normal;
+}
+
+form.django li {
+    list-style-type: none;
+}
+
+.errorlist {
+    margin-top: 10px;
+    color: red;
+}
+
+.button-wrapper button {
+    background-color: #f9f9f9;
+    background-image: linear-gradient(to top, #f9f9f9, #f1f1f1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    border: 1px solid #dddddd;
+    border-radius: 2px;
+    color: #333333;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 0;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #ffffff;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-family: 'Blokletters-Balpen', sans-serif;
+}

@@ -1,0 +1,6 @@
+/media/filer*
+/static
+/venv
+/project.db
+/mvs/secrets.py
+__pycache__

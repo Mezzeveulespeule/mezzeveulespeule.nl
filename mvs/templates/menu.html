@@ -1,0 +1,8 @@
+
+{% load menu_tags %}
+
+{% for child in children %}
+<li {% if child.color %}style="color: {{child.color}}"{% endif %} class="child{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+	<a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }} </a>
+</li>
+{% endfor %}
