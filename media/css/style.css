@@ -295,3 +295,13 @@ form.django li {
     white-space: nowrap;
     font-family: 'Blokletters-Balpen', sans-serif;
 }
+
+@media screen and (max-width: 980px) {
+    .columns {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+    }
+}
