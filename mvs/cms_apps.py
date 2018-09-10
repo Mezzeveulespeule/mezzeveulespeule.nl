@@ -32,6 +32,9 @@ class Photo(object):
     def get_file_link(self):
         return 'fotos/' + self.folder.get_folder() + '/' + self.file
 
+    def is_video(self):
+        return self.file.endswith('.mp4')
+
 
 class PhotosFolder(object):
     def __init__(self, parent, name):
@@ -86,7 +89,7 @@ class PhotosFolder(object):
         return len(self.get_subfolders()) > 0
 
     def get_photos(self):
-        return [Photo(self, filename) for filename in sorted(os.listdir(self.get_directory())) if filename.endswith('.jpg')]
+        return [Photo(self, filename) for filename in sorted(os.listdir(self.get_directory())) if filename.endswith('.jpg') or filename.endswith('.mp4')]
 
     def get_random_photo(self):
         if self.has_subfolders():
