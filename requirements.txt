@@ -21,3 +21,4 @@ six
 psycopg2
 djangocms-forms
 django-import-export
+djangocms-redirect

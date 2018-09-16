@@ -106,6 +106,7 @@ TEMPLATES = [
 
 
 MIDDLEWARE_CLASSES = (
+    'djangocms_redirect.middleware.RedirectMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -147,6 +148,7 @@ INSTALLED_APPS = (
     'djangocms_googlemap',
     'djangocms_video',
     'djangocms_forms',
+    'djangocms_redirect',
     'import_export',
     'mvs'
 )
