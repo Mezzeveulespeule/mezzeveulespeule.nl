@@ -8,9 +8,12 @@ from django.http import HttpResponseRedirect
 import os.path
 import random
 import re
+import html
 import mvs.settings as settings
 from django import forms
 from django.http import Http404
+from django.core.mail import send_mail
+from django.db.models.query import QuerySet
 
 
 class Photo(object):
@@ -156,18 +159,18 @@ class VrijwilligerForm(forms.ModelForm):
 
     title = 'Vrijwilligers'
 
-    nog_een = forms.BooleanField(label='Wilt u nog een vrijwilliger opgeven?', required=False)
+    # TODO: Re-enable for aanmeldingen next year
+    # nog_een = forms.BooleanField(
+    #     label='Wilt u nog een vrijwilliger opgeven?', required=False)
 
     class Meta:
         model = Vrijwilliger
         exclude = []
 
         labels = {
-            'voornaam': 'Wat is uw of zijn/haar voornaam?',
-            'tussenvoegsel': 'Wat is uw of zijn/haar tussenvoegsel?',
-            'achternaam': 'Wat is uw of zijn/haar achternaam?',
-            'geboortedatum': 'Wat is uw of zijn/haar geboortedatum?',
-            'tel': 'Wat is uw of zijn/haar telefoonnummer?',
+            'tel': 'Telefoonnummer 1',
+            'tel2': 'Telefoonnummer 2',
+            'ehbo': 'Heeft u een EHBO diploma?',
             'stage': 'Bent u vrijwilliger voor een maatschappelijke stage?',
             'dagen': 'Op welke dagen zou u (eventueel) kunnen komen helpen?',
             'taken': 'Hebt u een voorkeur voor een bepaalde taak?',
@@ -187,7 +190,8 @@ class AanmeldingBasisForm(forms.ModelForm):
     title = 'Mezzeveulespeule Inschrijfformulier'
     description = 'Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in.'
 
-    heeft_allergien = forms.BooleanField(label='Heeft uw kind allergieën of zijn er bijzonderheden?', required=False)
+    heeft_allergien = forms.BooleanField(
+        label='Heeft uw kind allergieën of zijn er bijzonderheden?', required=False)
 
     description = 'Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in. '
 
@@ -396,3 +400,81 @@ class SignUpHook(CMSApp):
             url(r'^(.*)', signup_view),
 
         ]
+
+
+@apphook_pool.register
+class VolunteerHook(CMSApp):
+    name = 'Vrijwilligers'
+
+    def get_urls(self, page=None, language=None, **kwargs):
+        return [url(r'', self.view)]
+
+    def view(self, request):
+        # Show thank you message
+        if 'thanks' in request.session:
+            del request.session['thanks']
+            return render(request, 'vrijwilliger_thanks.html')
+
+        if request.method == 'POST':
+            # Validate form
+            form = VrijwilligerForm(request.POST)
+
+            if form.is_valid():
+                form.save()
+
+                # Construct overview
+                email_html = """
+                <style>
+                th {
+                    text-align: right;
+                }
+                th, td {
+                    padding: 5px;
+                }
+                </style>
+                <table>
+                """
+
+                for field in form:
+                    data = form.cleaned_data[field.name]
+
+                    # Make human readable
+                    if isinstance(data, bool):
+                        print(data)
+                        data = 'Ja' if data else 'Nee'
+
+                    elif isinstance(data, QuerySet):
+                        data = ', '.join(map(str, data))
+                    else:
+                        data = str(data)
+
+                    email_html += '<tr><th>' + field.label + ':</th><td>' + html.escape(data) + '<td></tr>'
+
+                email_html += '</table>'
+
+                # Send to organization
+                send_mail('Nieuwe Vrijwilliger',
+                          email_html,
+                          'info@mezzeveulespeule.nl',
+                          ['vrijwilligers@mezzeveulespeule.nl'],
+                          html_message=email_html)
+
+                # Send copy to volunteer
+                volunteer_email = form.cleaned_data['email']
+                send_mail('Aanmelding Vrijwilliger',
+                          'Bedankt voor uw aanmelding!',
+                          'info@mezzeveulespeule.nl',
+                          [volunteer_email],
+                          html_message='<h1>Aanmelding Vrijwillliger</h1>' +
+                          '<p>Bedankt voor uw aanmelding!</p>' +
+                          email_html)
+
+                request.session['thanks'] = True
+                return HttpResponseRedirect(request.path)
+        else:
+            form = VrijwilligerForm()
+
+        # Show form
+        return render(request, 'vrijwilliger.html', {
+            'form': form
+        })

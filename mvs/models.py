@@ -35,8 +35,22 @@ class Vrijwilliger(models.Model):
     tussenvoegsel = models.CharField(max_length=50, blank=True)
     achternaam = models.CharField(max_length=100)
 
+    geslacht = models.CharField(max_length=10, choices=(
+        ('M', 'Man'),
+        ('V', 'Vrouw'),
+    ))
+
+    adres = models.CharField(max_length=100)
+    postcode = models.CharField(max_length=7)
+    woonplaats = models.CharField(max_length=100)
+
+    email = models.EmailField()
+
+    ehbo = models.BooleanField()
+
     geboortedatum = models.DateField()
     tel = models.CharField(max_length=50)
+    tel2 = models.CharField(max_length=50, blank=True)
     stage = models.BooleanField()
 
     dagen = models.ManyToManyField(Dag, blank=True)
@@ -44,6 +58,8 @@ class Vrijwilliger(models.Model):
 
     eigen_kind = models.CharField(max_length=100, blank=True)
     opmerkingen = models.TextField(blank=True)
+
+    aanmelding_timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '{0} {1} {2}'.format(self.voornaam, self.tussenvoegsel, self.achternaam)
