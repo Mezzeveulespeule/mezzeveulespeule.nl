@@ -20,4 +20,4 @@ class ColorExtensionToolbar(ExtensionToolbar):
             if url:
                 # adds a toolbar item in position 0 (at the top of the menu)
                 current_page_menu.add_modal_item('Page Color', url=url,
-                                                 disabled=not self.toolbar.edit_mode, position=0)
+                                                 disabled=not self.toolbar.edit_mode_active, position=0)

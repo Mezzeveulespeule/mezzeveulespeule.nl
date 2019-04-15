@@ -50,10 +50,7 @@ header.box {
     border-bottom-width: 0;
     margin-top: 14px;
     border-color:  #71BF43;
-}
-
-header .slogan {
-    position: absolute;
+    display: flex;
 }
 
 /* Header small screen */
@@ -167,13 +164,14 @@ aside h3 {
     background-color: #91268F;
     padding: 10px;
     font-size: 15px;
+    margin-bottom: 5px;
 }
 
 aside p {
     color: #FFFFFF;
     background-color: #949599;
-    margin: 5px 0 !important;
-    padding: 10px;
+    margin: 0 !important;
+    padding: 0.7em;
     line-height: 1.5em;
 }
 
