@@ -153,15 +153,8 @@ class VrijwilligerVraagForm(forms.Form):
         ('nee', 'Ik heb me al aangemeld'),
     ], widget=forms.RadioSelect)
 
-
 class VrijwilligerForm(forms.ModelForm):
-    url = 'vrijwilliger/aanmelden'
-
     title = 'Vrijwilligers'
-
-    # TODO: Re-enable for aanmeldingen next year
-    # nog_een = forms.BooleanField(
-    #     label='Wilt u nog een vrijwilliger opgeven?', required=False)
 
     class Meta:
         model = Vrijwilliger
@@ -184,6 +177,11 @@ class VrijwilligerForm(forms.ModelForm):
             'geboortedatum': forms.DateInput(attrs={'type': 'date'})
         }
 
+class VrijwilligerInschrijvenForm(VrijwilligerForm):
+    url = 'vrijwilliger/aanmelden'
+
+    nog_een = forms.BooleanField(
+        label='Wilt u nog een vrijwilliger opgeven?', required=False)
 
 class AanmeldingBasisForm(forms.ModelForm):
     url = ''
@@ -274,7 +272,7 @@ def get_form(url, post=None, initial=None):
     """
     Bepaal correcte formulier
     """
-    forms = [VrijwilligerForm, VrijwilligerVraagForm,
+    forms = [VrijwilligerInschrijvenForm, VrijwilligerVraagForm,
              AanmeldingBasisForm, AllergienForm, GroepsmaatjeForm,
              OvernachtingForm, OpmerkingenForm]
 
@@ -348,16 +346,16 @@ def signup_view(request, url):
 
             elif isinstance(form, VrijwilligerVraagForm):
                 if form.cleaned_data['aanmelden'] == 'ja':
-                    return redirect_to(VrijwilligerForm)
+                    return redirect_to(VrijwilligerInschijvenForm)
                 else:
                     return redirect_to(OpmerkingenForm)
-            elif isinstance(form, VrijwilligerForm):
+            elif isinstance(form, VrijwilligerInschrijvenForm):
 
                 # Save form
                 form.save()
                 if form.cleaned_data['nog_een']:
                     # TODO: Iets laten weten?
-                    return redirect_to(VrijwilligerForm)
+                    return redirect_to(VrijwilligerInschrijvenForm)
                 else:
                     return redirect_to(OpmerkingenForm)
 
