@@ -346,7 +346,7 @@ def signup_view(request, url):
 
             elif isinstance(form, VrijwilligerVraagForm):
                 if form.cleaned_data['aanmelden'] == 'ja':
-                    return redirect_to(VrijwilligerInschijvenForm)
+                    return redirect_to(VrijwilligerInschrijvenForm)
                 else:
                     return redirect_to(OpmerkingenForm)
             elif isinstance(form, VrijwilligerInschrijvenForm):
