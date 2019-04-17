@@ -17,9 +17,8 @@ span.required {
 span.required::after {
     content: '*';
 }
-
 </style>
-<form method="POST" class="django">
+<form method="POST" class="django" autocomplete="off">
 {% csrf_token %}
 
 <table>
