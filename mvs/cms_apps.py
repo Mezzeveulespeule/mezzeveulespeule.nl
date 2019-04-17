@@ -290,14 +290,18 @@ def redirect_to(form):
 
 
 def signedup_view(request):
+    aangemeld_naam = request.session['aangemeld_naam']
     if request.method == 'POST':
         if 'nog_een_kind' in request.POST:
             request.session['aanmelding'] = request.session['zelfde_kind']
 
         request.session['zelfde_kind'] = {}
+        request.session['aangemeld_naam'] = ''
         return redirect_to(AanmeldingBasisForm)
 
-    return render(request, 'signedup.html')
+    return render(request, 'signedup.html', {
+        'aangemeld_naam': aangemeld_naam
+    })
 
 
 def signup_view(request, url):
@@ -370,6 +374,7 @@ def signup_view(request, url):
                 for key in ['achternaam', 'adres', 'email', 'tel1', 'tel2', 'school']:
                     zelfde_kind[key] = request.session['aanmelding'][key]
 
+                request.session['aangemeld_naam'] = aanmelding.voornaam + ' ' + aanmelding.achternaam
                 request.session['aanmelding'] = {}
                 request.session['zelfde_kind'] = zelfde_kind
 

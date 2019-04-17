@@ -8,15 +8,31 @@
 <p>{{form.description}}</p>
 
 <style>
-    form ul {
-        margin-top: 10px;
-    }
+form ul {
+    margin-top: 10px;
+}
+span.required {
+    font-weight: bold;
+}
+span.required::after {
+    content: '*';
+}
+
 </style>
 <form method="POST" class="django">
 {% csrf_token %}
 
 <table>
-{{form}}
+    {% for field in form %}
+    <tr>
+
+        <th>
+            {{field.errors}}
+            <span class="{% if field.field.required %}required{% endif %}">{{ field.label_tag}}</span>
+        </th>
+        <td>{{ field }}</td>
+    </tr>
+    {% endfor %}
 </table>
 
 <div class="button-wrapper">
