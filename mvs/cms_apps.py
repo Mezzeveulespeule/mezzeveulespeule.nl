@@ -383,7 +383,16 @@ def signup_view(request, url):
 
         # Not valid POST? Just show errors
     else:
-        form = get_form(url, initial=request.session['aanmelding'])
+        if url == VrijwilligerInschrijvenForm.url:
+            aanmelding = request.session['aanmelding']
+            form = VrijwilligerInschrijvenForm(initial={
+                'achternaam': aanmelding['achternaam'],
+                'adres': aanmelding['adres'],
+                'tel': aanmelding['tel1'],
+                'email': aanmelding['email'],
+            })
+        else:
+            form = get_form(url, initial=request.session['aanmelding'])
 
     # Laat het formulier zien
     return render(request, 'signup.html', {
