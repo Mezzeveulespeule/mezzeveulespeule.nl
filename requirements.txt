@@ -9,4 +9,4 @@ djangocms-link
 djangocms-text-ckeditor
 djangocms-picture
 djangocms-redirect
--e git://github.com/BrazosCC/djangocms-forms#egg=djangocms-forms
+-e git://github.com/PaulWagener/djangocms-forms#egg=djangocms-forms
