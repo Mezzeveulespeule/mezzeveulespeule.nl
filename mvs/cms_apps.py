@@ -92,7 +92,9 @@ class PhotosFolder(object):
         return len(self.get_subfolders()) > 0
 
     def get_photos(self):
-        return [Photo(self, filename) for filename in sorted(os.listdir(self.get_directory())) if filename.endswith('.jpg') or filename.endswith('.mp4')]
+        return [Photo(self, filename)
+               for filename in sorted(os.listdir(self.get_directory()))
+               if (filename.endswith('.jpg') or filename.endswith('.mp4')) and not 'autocrop' in filename]
 
     def get_random_photo(self):
         if self.has_subfolders():
