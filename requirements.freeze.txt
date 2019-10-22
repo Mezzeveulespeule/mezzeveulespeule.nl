@@ -33,7 +33,7 @@ jdcal==1.4
 jsonfield==2.0.2
 odfpy==1.4.0
 openpyxl==2.6.2
-Pillow==6.0.0
+Pillow==6.2.0
 psycopg2-binary==2.7.7
 pytz==2019.1
 PyYAML==5.1
