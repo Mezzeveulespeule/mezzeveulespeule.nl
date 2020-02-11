@@ -1,6 +1,6 @@
 django-import-export
 psycopg2-binary<2.8 # Issue: https://github.com/divio/django-cms/issues/6666
-Django<2.2
+Django<2.3
 
 # Django CMS
 django-cms
