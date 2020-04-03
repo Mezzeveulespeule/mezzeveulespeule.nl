@@ -1,6 +1,6 @@
 django-import-export
-psycopg2-binary<2.8 # Issue: https://github.com/divio/django-cms/issues/6666
-Django<2.2
+psycopg2-binary
+Django<3
 
 # Django CMS
 django-cms
@@ -9,4 +9,3 @@ djangocms-link
 djangocms-text-ckeditor
 djangocms-picture
 djangocms-redirect
--e git://github.com/PaulWagener/djangocms-forms#egg=djangocms-forms
