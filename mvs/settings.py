@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'djangocms_link',
     'djangocms_text_ckeditor',
     'djangocms_picture',
-    'djangocms_forms',
     'djangocms_redirect',
 
     # MVS
