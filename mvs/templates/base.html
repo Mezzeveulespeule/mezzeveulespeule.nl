@@ -1,54 +1,57 @@
 {% load cms_tags menu_tags sekizai_tags %}
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>{% block title %}Mezzeveulespeule{% endblock title %} - Mezzeveulespeule</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="/media/css/style.css">
-    <link rel="stylesheet" href="/media/css/slick.css">
-    <link rel="stylesheet" href="/media/css/slick-theme.css">
+  <head>
+    <title>
+      {% block title %}Mezzeveulespeule{% endblock title %} - Mezzeveulespeule
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="/media/css/style.css" />
+    <link rel="stylesheet" href="/media/css/slick.css" />
+    <link rel="stylesheet" href="/media/css/slick-theme.css" />
     <script src="/media/js/jquery-3.2.1.min.js" defer></script>
     <script src="/media/js/slick.min.js" defer></script>
     <script src="/media/js/script.js" defer></script>
-    <link rel="shortcut icon" href="/media/img/favicon.ico" /> {% render_block "css" %}
-</head>
+    <link rel="shortcut icon" href="/media/img/favicon.ico" />
+    {% render_block "css" %}
+  </head>
 
-<body>
+  <body>
     {% cms_toolbar %}
 
     <div class="container">
+      <header class="box">
+        {% static_placeholder "logo" %}
+        <img
+          src="/media/img/slogan.png"
+          alt="Ligt jouw hamer alweer klaar?"
+          class="slogan"
+        />
+      </header>
 
-        <header class="box">
-            {% static_placeholder "logo" %}
-            <img src="/media/img/slogan.png" alt="Ligt jouw hamer alweer klaar?" class="slogan">
-        </header>
+      <nav class="box">
+        <ul class="nav">
+          {% show_menu 0 0 0 0 'menu.html' %}
+          <li class="facebook">
+            <a href="https://facebook.com/mezzeveulespeule">
+              <img src="/media/img/facebook.png" alt="Facebook" />
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        <nav class="box">
-            <ul class="nav">
-                {% show_menu 0 0 0 0 'menu.html' %}
-                <li class="facebook">
-                    <a href="https://facebook.com/mezzeveulespeule">
-                        <img src="/media/img/facebook.png" alt="Facebook">
-                    </a>
-                </li>
-            </ul>
-        </nav>
+      <section
+        class="box carousel {% if request.toolbar.edit_mode %}edit{% endif %}"
+      >
+        {% static_placeholder "carousel" %}
+      </section>
 
-        <section class="box carousel {% if request.toolbar.edit_mode %}edit{% endif %}">
-            {% static_placeholder "carousel" %}
-        </section>
+      <section class="main box">
+        {% block content %}{% endblock %}
+      </section>
 
-        <section class="main box">
-
-            {% block content %}{% endblock %}
-
-        </section>
-
-        <div class="footer">© Mezzeveulespeule 2019</div>
+      <div class="footer">© Mezzeveulespeule {% now "Y" %}</div>
     </div>
     {% render_block "js" %}
-
-</body>
-
+  </body>
 </html>
