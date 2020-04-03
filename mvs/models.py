@@ -18,6 +18,7 @@ class Dag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Dagen'
+        ordering = ('id',)
 
 
 class Taak(models.Model):
