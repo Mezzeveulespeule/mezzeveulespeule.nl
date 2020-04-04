@@ -197,7 +197,7 @@ class AanmeldingBasisForm(forms.ModelForm):
 
     class Meta:
         model = Aanmelding
-        fields = ['voornaam', 'achternaam', 'geslacht',
+        fields = ['geslacht', 'voornaam', 'achternaam',
                   'klas', 'adres', 'email', 'tel1', 'tel2',
                   'school']
 

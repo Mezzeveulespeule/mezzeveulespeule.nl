@@ -78,5 +78,16 @@ $(function () {
         var id = window.location.hash.substring(1);
         startSlideshow(id);
     }
+
+    // Inschrijfformulier
+    $('input[name=geslacht]').on('change', function() {
+      var pronoun = 'haar';
+      if($(this).filter(':checked').val() === 'M') {
+        pronoun = 'zijn';
+      }
+      $('label[for=id_voornaam]').text('Wat is ' + pronoun + ' voornaam?');
+      $('label[for=id_achternaam]').text('Wat is ' + pronoun + ' achternaam?');
+      $('label[for=id_adres]').text('Wat is ' + pronoun + ' adres?');
+    });
 });
 
