@@ -98,7 +98,7 @@ class Aanmelding(models.Model):
     tel2 = models.CharField(max_length=100, blank=True)
     school = models.CharField(max_length=100, default=None)
 
-    allergien = models.TextField()
+    allergien = models.TextField(blank=True)
 
     groepsmaatje = models.CharField(max_length=100, blank=True)
     groepsmaatje_school = models.CharField(max_length=100, blank=True)

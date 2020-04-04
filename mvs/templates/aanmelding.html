@@ -1,8 +1,12 @@
 {% extends "base.html" %} {% load cms_tags %} {% block content %}
 
+<div style="border: 5px solid red; border-radius: 14px; margin: 25px; padding: 25px; text-align: center; font-size: 20pt;">
+  Dit inschrijfformulier is een concept. Het is nog niet mogelijk om in te schrijven!
+</div>
+
 <h2>{{form.title}}</h2>
 
-<p>{{form.description}}</p>
+<p>{{form.description|safe}}</p>
 
 <style>
   form ul {
@@ -14,7 +18,13 @@
   span.required::after {
     content: "*";
   }
+
+  input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+  }
 </style>
+
 <form method="POST" class="django" autocomplete="off">
   {% csrf_token %}
 
