@@ -10,9 +10,10 @@ from django.core.mail import send_mail
 from .models import Aanmelding
 from .volunteer import VrijwilligerForm, process_volunteer_form
 from mollie.api.client import Client
+from .secrets import MOLLIE_API_KEY
 
 mollie_client = Client()
-mollie_client.set_api_key("test_rvuhtk3tn37z7DWtM82bAaC6uFP3JN")
+mollie_client.set_api_key(MOLLIE_API_KEY)
 
 
 class VrijwilligerInschrijvenForm(VrijwilligerForm):
