@@ -30,110 +30,210 @@
   table.inschrijfgeld th {
     padding: 5px;
     border: 1px solid grey;
-   }
+  }
 </style>
-<h2>Inschrijvingen</h2>
+<h2>Inschrijving bijna afgerond</h2>
 
-<div style="border: 5px solid red; border-radius: 14px; margin: 25px; padding: 25px; text-align: center; font-size: 20pt;">
-  Dit inschrijfformulier is een concept. Het is nog niet mogelijk om in te schrijven!
+<div
+  style="
+    border: 5px solid red;
+    border-radius: 14px;
+    margin: 25px;
+    padding: 25px;
+    text-align: center;
+    font-size: 20pt;
+  "
+>
+  Dit inschrijfformulier is een concept. Het is nog niet mogelijk om in te
+  schrijven!
 </div>
 
-<p>Controleer goed of u alles goed heeft ingevuld. U kunt op de informatie klikken om deze nog te wijzigen.</p>
-
-<form method="POST">
-{% csrf_token %}
-
-<ul class="overzicht">
-{% for aanmelding in aanmeldingen %}
-
-  <li>
-    <ul class="inschrijving">
-      <li><label>Voornaam:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.voornaam }}</a></span>
-      </li>
-
-      <li><label>Achternaam:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.achternaam }}</a></span>
-      </li>
-
-      <li><label>Geslacht:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{% if aanmelding.geslacht == 'F' %}meisje{% else %}jongen{% endif %}</a></span>
-      </li>
-
-      <li><label>Klas:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">Groep {{ aanmelding.klas }}</a></span>
-      </li>
-
-      <li><label>Adres:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.adres }}</a></span>
-      </li>
-
-      <li><label>E-mail:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.email }}</a></span>
-      </li>
-
-      <li><label>Telefoonnummer 1:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.tel1 }}</a></span>
-      </li>
-
-      <li><label>Telefoonnummer 2:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.tel2|default:"-"}}</a></span>
-      </li>
-
-      <li><label>School:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}?wijzig">{{ aanmelding.school }}</a></span>
-      </li>
-
-      <li><label>Allergieën / bijzonderheden:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}/allergieen?wijzig">{{ aanmelding.allergien|default:"-" }}</a></span>
-      </li>
-
-      <li><label>Groepsmaatje:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}/groepsmaatje?wijzig">{{ aanmelding.groepsmaatje|default:"-" }}</a></span>
-      </li>
-
-      <li><label>School groepsmaatje:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}/groepsmaatje?wijzig">{{ aanmelding.groepsmaatje_school|default:"-" }}</a></span>
-      </li>
-
-      {% if aanmelding.klas == '8' %}
-      <li><label>Overnachting:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}/overnachting?wijzig">{% if aanmelding.overnachting %}Ja{% else %}Nee{% endif %}</a></span>
-      </li>
-      {% endif %}
-
-      <li><label>Opmerkingen / vragen:</label>
-        <span><a href="/inschrijven/{{forloop.counter}}/opmerkingen?wijzig">{{ aanmelding.opmerkingen|default:"-" }}</a></span>
-      </li>
-      <li><br /><div class="button-wrapper">
-        <button type="submit" name="delete" value="{{ forloop.counter0 }}" onclick="return confirm('Weet u zeker dat u de inschrijving {{ aanmelding.voornaam|escapejs}} wilt verwijderen?')">Deze inschrijving verwijderen</button>
-      </div></li>
-    </ul>
-  </li>
-
-{% endfor %}
-</ul>
-
 <p>
-  <a href="/inschrijven/{{aanmeldingen|length|add:1}}" class="biglink">Nog een kind toevoegen</a>
+  De aanmelding is bijna afgerond. Controleer goed of u alles goed heeft
+  ingevuld. U kunt op de informatie klikken om deze nog te wijzigen.
 </p>
 
+<p><b>Betaal het inschrijfgeld met iDeal om de betaling af te ronden</b></p>
 
-<h2>Inschrijfgeld</h2>
+<form method="POST">
+  {% csrf_token %}
 
-<table class="inschrijfgeld">
-{% for regel in kosten %}
-  <tr>
-    <td>{{ regel.naam }}</td>
-    <td>€{{ regel.bedrag|floatformat:2 }}</td>
-  </tr>
-{% endfor %}
-  <tr>
-    <th>Totaal</th>
-    <th>€{{totaal|floatformat:2}}</th>
-  </tr>
-</table>
+  <ul class="overzicht">
+    {% for aanmelding in aanmeldingen %}
 
+    <li>
+      <ul class="inschrijving">
+        <li>
+          <label>Voornaam:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.voornaam }}</a
+            ></span
+          >
+        </li>
 
+        <li>
+          <label>Achternaam:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.achternaam }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Geslacht:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{% if aanmelding.geslacht == 'F' %}meisje
+              <!---->
+              {% else %} jongen{%endif%}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Klas:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >Groep {{ aanmelding.klas }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Adres:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.adres }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>E-mail:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.email }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Telefoonnummer 1:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.tel1 }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Telefoonnummer 2:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.tel2|default:"-"}}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>School:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}?wijzig"
+              >{{ aanmelding.school }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Allergieën / bijzonderheden:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}/allergieen?wijzig"
+              >{{ aanmelding.allergien|default:"-" }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>Groepsmaatje:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}/groepsmaatje?wijzig"
+              >{{ aanmelding.groepsmaatje|default:"-" }}</a
+            ></span
+          >
+        </li>
+
+        <li>
+          <label>School groepsmaatje:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}/groepsmaatje?wijzig"
+              >{{ aanmelding.groepsmaatje_school|default:"-" }}</a
+            ></span
+          >
+        </li>
+
+        {% if aanmelding.klas == '8' %}
+        <li>
+          <label>Overnachting:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}/overnachting?wijzig"
+              >{% if aanmelding.overnachting %}Ja{% else %}Nee{% endif %}</a
+            ></span
+          >
+        </li>
+        {% endif %}
+
+        <li>
+          <label>Opmerkingen / vragen:</label>
+          <span
+            ><a href="/inschrijven/{{forloop.counter}}/opmerkingen?wijzig"
+              >{{ aanmelding.opmerkingen|default:"-" }}</a
+            ></span
+          >
+        </li>
+        <li>
+          <br />
+          <div class="button-wrapper">
+            <button
+              type="submit"
+              name="delete"
+              value="{{ forloop.counter0 }}"
+              onclick="return confirm('Weet u zeker dat u de inschrijving {{ aanmelding.voornaam|escapejs}} wilt verwijderen?')"
+            >
+              Deze inschrijving verwijderen
+            </button>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    {% endfor %}
+  </ul>
+
+  <p>
+    <a href="/inschrijven/{{aanmeldingen|length|add:1}}"
+      >Nog een kind toevoegen</a
+    >
+  </p>
+
+  <h2>Inschrijfgeld</h2>
+
+  <table class="inschrijfgeld">
+    {% for regel in kosten %}
+    <tr>
+      <td>{{ regel.naam }}</td>
+      <td>€{{ regel.bedrag|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <th>Totaal</th>
+      <th>€{{totaal|floatformat:2}}</th>
+    </tr>
+  </table>
+
+  <div class="button-wrapper">
+    <button type="submit" name="betalen">Betalen met iDeal</button>
+  </div>
 </form>
 {% endblock content %}

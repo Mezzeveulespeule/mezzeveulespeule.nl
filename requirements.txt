@@ -1,7 +1,7 @@
 django-import-export
 psycopg2-binary
 Django<3
-
+mollie-api-python
 # Django CMS
 django-cms
 djangocms-file
