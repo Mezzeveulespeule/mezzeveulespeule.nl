@@ -92,6 +92,9 @@ class Aanmelding(models.Model):
         ],
     )
     adres = models.CharField(max_length=500)
+    postcode = models.CharField(max_length=7)
+    woonplaats = models.CharField(max_length=100)
+
     email = models.EmailField()
     tel1 = models.CharField(max_length=100)
     tel2 = models.CharField(max_length=100, blank=True)

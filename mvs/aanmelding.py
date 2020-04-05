@@ -59,6 +59,8 @@ class AanmeldingBasisForm(forms.ModelForm):
             "achternaam",
             "klas",
             "adres",
+            "postcode",
+            "woonplaats",
             "email",
             "tel1",
             "tel2",
@@ -71,6 +73,8 @@ class AanmeldingBasisForm(forms.ModelForm):
             "geslacht": "Een jongen of meisje?",
             "klas": "In welke klas zit uw kind?",
             "adres": "Wat is zijn of haar adres?",
+            "postcode": "Wat is zijn of haar postcode?",
+            "woonplaats": "Wat is zijn of haar woonplaats?",
             "email": "Wat is uw e-mailadres?",
             "tel1": "Op welk telefoonnummer kunnen we u bereiken voor en tijdens de dagen?",
             "tel2": "Op welk tweede telefoonnummer kunnen we u in noodgevallen ook bellen?",
@@ -159,37 +163,9 @@ def get_form(url, post=None, initial=None):
     raise Http404
 
 
-# def signedup_view(request):
-#     aangemeld_naam = request.session['aangemeld_naam']
-#     if request.method == 'POST':
-#         if 'nog_een_kind' in request.POST:
-#             request.session['aanmelding'] = request.session['zelfde_kind']
-#
-#         request.session['zelfde_kind'] = {}
-#         request.session['aangemeld_naam'] = ''
-#         #return redirect_to(AanmeldingBasisForm)
-#
-#     return render(request, 'signedup.html', {
-#         'aangemeld_naam': aangemeld_naam
-#     })
-
-
 def leeg_view(request):
     del request.session["aanmeldingen"]
     return HttpResponseRedirect("/inschrijven")
-
-
-# TODO: Clear session url
-# Maak sessie leeg, handige link
-#     if url == 'leeg':
-#         request.session['aanmeldingen'] = []
-#         return redirect_to(AanmeldingBasisForm)
-
-# /inschrijven/review
-# /inschrijven/betalen
-
-# /inschrijven/vrijwilliger (nieuwe vrijwilliger, impliciet 1)
-# /inschrijven/vrijwiligger/2
 
 
 def aanmelding_view(request, ordinal, url):
@@ -216,13 +192,15 @@ def aanmelding_view(request, ordinal, url):
             aanmelding = {
                 "achternaam": aanmeldingen[0].get("achternaam", ""),
                 "adres": aanmeldingen[0].get("adres", ""),
+                "postcode": aanmeldingen[0].get("postcode", ""),
+                "woonplaats": aanmeldingen[0].get("woonplaats", ""),
                 "email": aanmeldingen[0].get("email", ""),
                 "tel1": aanmeldingen[0].get("tel1", ""),
                 "tel2": aanmeldingen[0].get("tel2", ""),
                 "school": aanmeldingen[0].get("school", ""),
             }
         else:
-            aanmelding = {}
+            aanmelding = {"woonplaats": "Bladel"}
 
         aanmeldingen.append(aanmelding)
         index = len(aanmeldingen) - 1
@@ -334,7 +312,10 @@ def vrijwilliger_view(request):
             initial_data = {
                 "achternaam": aanmelding.get("achternaam", ""),
                 "adres": aanmelding.get("adres", ""),
+                "postcode": aanmelding.get("postcode", ""),
+                "woonplaats": aanmelding.get("woonplaats", ""),
                 "tel": aanmelding.get("tel1", ""),
+                "tel2": aanmelding.get("tel2", ""),
                 "email": aanmelding.get("email", ""),
             }
         else:
@@ -453,6 +434,8 @@ def betaling_view(request):
                               <tr><th>Geslacht</th><td>{aanmelding.geslacht}</td></tr>
                               <tr><th>Klas</th><td>Groep {aanmelding.klas}</td></tr>
                               <tr><th>Adres</th><td>{aanmelding.adres}</td></tr>
+                              <tr><th>Postcode</th><td>{aanmelding.postcode}</td></tr>
+                              <tr><th>Woonplaats</th><td>{aanmelding.woonplaats}</td></tr>
                               <tr><th>E-mail</th><td>{aanmelding.email}</td></tr>
                               <tr><th>Telefoonnummer 1</th><td>{aanmelding.tel1}</td></tr>
                               <tr><th>Telefoonnummer 2</th><td>{aanmelding.tel2}</td></tr>
