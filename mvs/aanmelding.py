@@ -300,7 +300,7 @@ def vrijwilliger_view(request):
 
         if form.is_valid():
             # Vrijwilliger opslaan
-            # process_volunteer_form(form)
+            process_volunteer_form(form)
 
             return render(request, "aanmelding_vrijwilliger_bedankt.html")
     else:
