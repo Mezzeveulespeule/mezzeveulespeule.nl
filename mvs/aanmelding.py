@@ -5,6 +5,7 @@ from django.conf.urls import url
 from django.http import Http404, HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.core.mail import send_mail
 
 from .models import Aanmelding
 from .volunteer import VrijwilligerForm, process_volunteer_form
@@ -17,7 +18,7 @@ mollie_client.set_api_key("test_rvuhtk3tn37z7DWtM82bAaC6uFP3JN")
 class VrijwilligerInschrijvenForm(VrijwilligerForm):
     description = """
     <p>Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen.
-    We kunnen helaas niet zonder. Hebt u tijd om te helpen? Ook als u maar een dag of een dagdeel kunt, bent u van harte welkom.</p>
+    Zonder vrijwilligers kunnen we de dagen niet organiseren. Hebt u tijd om te helpen? Ook als u maar een dag of een dagdeel kunt, bent u van harte welkom.</p>
 
     <b><a href="/inschrijven/overzicht">Ik heb me al opgegeven / ik wil niet meedoen als vrijwilliger</a></b>
     """
@@ -26,9 +27,9 @@ class VrijwilligerInschrijvenForm(VrijwilligerForm):
 class AanmeldingBasisForm(forms.ModelForm):
     url = ""
     title = "Mezzeveulespeule Inschrijfformulier"
-    description = """<p>Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in.</p>
+    description = """<p>Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in. Bepaalde informatie wordt al voor u ingevuld.</p>
 
-    <p>Aan het eind kunt u met iDeal betalen en is de aanmelding meteen afgerond</p>
+    <p>Aan het eind kunt u in één keer met iDeal alles betalen en is de aanmelding meteen afgerond</p>
 
     <table cellspacing=7>
       <tr>
@@ -345,6 +346,9 @@ def vrijwilliger_view(request):
 
 
 def overzicht_view(request):
+    if "aanmeldingen" not in request.session:
+        return HttpResponseRedirect("/inschrijven")
+
     # Bereken kosten
     kosten = []
     for aanmelding in request.session["aanmeldingen"]:
@@ -430,6 +434,55 @@ def betaling_view(request):
         for aanmelding in aanmeldingen:
             aanmelding.heeft_betaald = True
             aanmelding.save()
+
+        # Send confirmation e-mail
+        for aanmelding in aanmeldingen:
+            email_html = f"""
+                            <style>
+                            th {{
+                                text-align: right;
+                            }}
+                            th, td {{
+                                padding: 5px;
+                            }}
+                            </style>
+                            <h1>Bevestiging inschrijving Mezzeveulespeule</h1>
+                            <table>
+                              <tr><th>Voornaam</th><td>{aanmelding.voornaam}</td></tr>
+                              <tr><th>Achternaam</th><td>{aanmelding.achternaam}</td></tr>
+                              <tr><th>Geslacht</th><td>{aanmelding.geslacht}</td></tr>
+                              <tr><th>Klas</th><td>Groep {aanmelding.klas}</td></tr>
+                              <tr><th>Adres</th><td>{aanmelding.adres}</td></tr>
+                              <tr><th>E-mail</th><td>{aanmelding.email}</td></tr>
+                              <tr><th>Telefoonnummer 1</th><td>{aanmelding.tel1}</td></tr>
+                              <tr><th>Telefoonnummer 2</th><td>{aanmelding.tel2}</td></tr>
+                              <tr><th>Allergieën</th><td>{aanmelding.allergien}</td></tr>
+                              <tr><th>Groepsmaatje</th><td>{aanmelding.groepsmaatje}</td></tr>
+                              <tr><th>School groepsmaatje</th><td>{aanmelding.groepsmaatje_school}</td></tr>
+                              {"<tr><td>Overnachting</th><td>Ja</td></tr>" if aanmelding.overnachting else ""}
+                              <tr><td>Opmerkingen / vragen</th><td>{aanmelding.opmerkingen}</td></tr>
+                            </table>
+                              """
+            # Send to user
+            send_mail(
+                "Inschrijving Mezzeveulespeule",
+                "",
+                "info@mezzeveulespeule.nl",
+                [aanmelding.email],
+                fail_silently=True,
+                html_message=email_html,
+            )
+
+            # Send to organization
+            send_mail(
+                "Inschrijving Mezzeveulespeule",
+                "",
+                "vrijwilligers@mezzeveulespeule.nl",
+                ["vrijwilligers@mezzeveulespeule.nl"],
+                fail_silently=True,
+                html_message="(Deze email is bedoeld als backup, alle data komt ook nog als Excel bestand)"
+                + email_html,
+            )
 
         return render(request, "aanmelding_aangemeld.html")
     else:
