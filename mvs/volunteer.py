@@ -17,7 +17,7 @@ class VrijwilligerForm(forms.ModelForm):
 
     class Meta:
         model = Vrijwilliger
-        exclude = []
+        exclude = ['tussenvoegsel']  # Remove in DB remove once volunteers are cleared again
 
         labels = {
             "tel": "Telefoonnummer 1",
