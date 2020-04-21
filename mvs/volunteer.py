@@ -22,12 +22,12 @@ class VrijwilligerForm(forms.ModelForm):
         labels = {
             "tel": "Telefoonnummer 1",
             "tel2": "Telefoonnummer 2",
-            "ehbo": "Heeft u een EHBO diploma?",
-            "stage": "Bent u vrijwilliger voor een maatschappelijke stage?",
-            "dagen": "Op welke dagen zou u (eventueel) kunnen komen helpen?",
-            "taken": "Hebt u een voorkeur voor een bepaalde taak?",
-            "eigen_kind": "Indien u een groep wilt begeleiden, wilt u uw eigen kind in de groep? (Geef de naam van de kinderen die u in de groep wil:)",
-            "opmerkingen": "Hebt u nog andere opmerkingen?",
+            "ehbo": "Heb je een EHBO diploma?",
+            "stage": "Ben je vrijwilliger voor een maatschappelijke stage?",
+            "dagen": "Op welke dagen zou je (eventueel) kunnen komen helpen?",
+            "taken": "Heb je een voorkeur voor een bepaalde taak?",
+            "eigen_kind": "Indien je een groep wilt begeleiden, wil je jouw eigen kind in de groep? (Geef de naam van de kinderen die je in de groep wil:)",
+            "opmerkingen": "Heb je nog andere opmerkingen?",
         }
 
         widgets = {
@@ -67,7 +67,7 @@ def process_volunteer_form(form: VrijwilligerForm):
             data = str(data)
 
         email_html += (
-            "<tr><th>" + field.label + ":</th><td>" + html.escape(data) + "<td></tr>"
+                "<tr><th>" + field.label + ":</th><td>" + html.escape(data) + "<td></tr>"
         )
 
     email_html += "</table>"
@@ -86,13 +86,13 @@ def process_volunteer_form(form: VrijwilligerForm):
     volunteer_email = form.cleaned_data["email"]
     send_mail(
         "Aanmelding Vrijwilliger",
-        "Bedankt voor uw aanmelding!",
+        "Bedankt voor je aanmelding!",
         "info@mezzeveulespeule.nl",
         [volunteer_email],
         fail_silently=True,
         html_message="<h1>Aanmelding Vrijwillliger</h1>"
-        + "<p>Bedankt voor uw aanmelding!</p>"
-        + email_html,
+                     + "<p>Bedankt voor je aanmelding!</p>"
+                     + email_html,
     )
 
 

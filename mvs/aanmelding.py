@@ -2,7 +2,7 @@ from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
 from django.conf.urls import url
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.mail import send_mail
@@ -19,7 +19,7 @@ mollie_client.set_api_key(MOLLIE_API_KEY)
 class VrijwilligerInschrijvenForm(VrijwilligerForm):
     description = """
     <p>Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen.
-    Zonder vrijwilligers kunnen we de dagen niet organiseren. Hebt u tijd om te helpen? Ook als u maar een dag of een dagdeel kunt, bent u van harte welkom.</p>
+    Zonder vrijwilligers kunnen we de dagen niet organiseren. Heb je tijd om te helpen? Ook als je maar een dag of een dagdeel kunt, ben je van harte welkom.</p>
 
     <b><a href="/inschrijven/overzicht">Ik heb me al opgegeven / ik wil niet meedoen als vrijwilliger</a></b>
     """
@@ -28,9 +28,9 @@ class VrijwilligerInschrijvenForm(VrijwilligerForm):
 class AanmeldingBasisForm(forms.ModelForm):
     url = ""
     title = "Mezzeveulespeule Inschrijfformulier"
-    description = """<p>Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in. Bepaalde informatie wordt al voor u ingevuld.</p>
+    description = """<p>Zijn jullie met meerdere kinderen thuis en willen jullie allemaal meedoen? Dat kan! Vul voor elk kind een apart formulier in. Bepaalde informatie wordt al voor je ingevuld.</p>
 
-    <p>Aan het eind kunt u in één keer met iDeal alles betalen en is de aanmelding meteen afgerond</p>
+    <p>Aan het eind kun je in één keer met iDeal alles betalen en is de aanmelding meteen afgerond</p>
 
     <table cellspacing=7>
       <tr>
@@ -49,7 +49,7 @@ class AanmeldingBasisForm(forms.ModelForm):
     """
 
     heeft_allergien = forms.BooleanField(
-        label="Heeft uw kind allergieën of zijn er bijzonderheden?", required=False
+        label="Heeft je kind allergieën of zijn er bijzonderheden?", required=False
     )
 
     class Meta:
@@ -72,14 +72,14 @@ class AanmeldingBasisForm(forms.ModelForm):
             "voornaam": "Wat is zijn/haar voornaam?",
             "achternaam": "Wat is zijn/haar achternaam?",
             "geslacht": "Een jongen of meisje?",
-            "klas": "In welke klas zit uw kind?",
+            "klas": "In welke klas zit je kind?",
             "adres": "Wat is zijn of haar adres?",
             "postcode": "Wat is zijn of haar postcode?",
             "woonplaats": "Wat is zijn of haar woonplaats?",
-            "email": "Wat is uw e-mailadres?",
-            "tel1": "Op welk telefoonnummer kunnen we u bereiken voor en tijdens de dagen?",
-            "tel2": "Op welk tweede telefoonnummer kunnen we u in noodgevallen ook bellen?",
-            "school": "Op welke school zit uw kind?",
+            "email": "Wat is je e-mailadres?",
+            "tel1": "Op welk telefoonnummer kunnen we je bereiken voor en tijdens de dagen?",
+            "tel2": "Op welk tweede telefoonnummer kunnen we je in noodgevallen ook bellen?",
+            "school": "Op welke school zit je kind?",
         }
         widgets = {"geslacht": forms.RadioSelect}
 
@@ -92,7 +92,7 @@ class AllergienForm(forms.ModelForm):
         model = Aanmelding
         fields = ["allergien"]
         labels = {
-            "allergien": "Welke allergie heeft uw kind? Of waar moeten we rekening mee houden?"
+            "allergien": "Welke allergie heeft je kind? Of waar moeten we rekening mee houden?"
         }
 
 
@@ -106,7 +106,7 @@ class GroepsmaatjeForm(forms.ModelForm):
         fields = ["groepsmaatje", "groepsmaatje_school"]
 
         labels = {
-            "groepsmaatje": "Bij wie wil uw kind graag in de groep?",
+            "groepsmaatje": "Bij wie wil je kind graag in de groep?",
             "groepsmaatje_school": "Op welke school zit dit groepsmaatje?",
         }
 
@@ -114,12 +114,12 @@ class GroepsmaatjeForm(forms.ModelForm):
 class OvernachtingForm(forms.ModelForm):
     url = "overnachting"
     title = "Overnachting voor groep 8"
-    description = "Zit uw kind in groep 8? Dan mag hij voor 2,50 euro extra ook blijven overnachten."
+    description = "Zit je kind in groep 8? Dan mag hij voor 2,50 euro extra ook blijven overnachten."
 
     class Meta:
         model = Aanmelding
         fields = ["overnachting"]
-        labels = {"overnachting": "Wil uw kind ook blijven overnachten?"}
+        labels = {"overnachting": "Wil jouw kind ook blijven overnachten?"}
 
 
 class ExtraKindForm(forms.ModelForm):
@@ -128,7 +128,7 @@ class ExtraKindForm(forms.ModelForm):
     description = "Het is mogelijk om meerdere kinderen tegelijkertijd op te geven"
 
     extra_kind = forms.BooleanField(
-        label="Wilt u nog een kind op geven?", required=True
+        label="Wil je nog een kind op geven?", required=True
     )
 
 
@@ -140,7 +140,7 @@ class OpmerkingenForm(forms.ModelForm):
         model = Aanmelding
         fields = ["opmerkingen"]
 
-        labels = {"opmerkingen": "Hebt u nog opmerkingen of vragen?"}
+        labels = {"opmerkingen": "Heb je nog opmerkingen of vragen?"}
 
 
 def get_form(url, post=None, initial=None):
@@ -269,25 +269,25 @@ def aanmelding_view(request, ordinal, url):
         if isinstance(form, GroepsmaatjeForm):
             form[
                 "groepsmaatje"
-            ].label = f"Bij wie wil {aanmelding.get('voornaam', 'uw kind')} graag in de groep?"
+            ].label = f"Bij wie wil {aanmelding.get('voornaam', 'je kind')} graag in de groep?"
         elif isinstance(form, OpmerkingenForm):
             form["opmerkingen"].label = (
-                "Heeft u nog opmerkingen of vragen "
-                f"over de aanmelding van {aanmelding.get('voornaam', 'uw kind')}?"
+                "Heb je nog opmerkingen of vragen "
+                f"over de aanmelding van {aanmelding.get('voornaam', 'je kind')}?"
             )
         elif isinstance(form, AllergienForm):
             form["allergien"].label = (
-                f"Welke allergie heeft {aanmelding.get('voornaam', 'uw kind')}?"
+                f"Welke allergie heeft {aanmelding.get('voornaam', 'je kind')}?"
                 f" Of waar moeten we rekening mee houden?"
             )
         elif isinstance(form, OvernachtingForm):
             form["overnachting"].label = (
-                f"Wil {aanmelding.get('voornaam', 'uw kind')} "
+                f"Wil {aanmelding.get('voornaam', 'je kind')} "
                 "ook blijven overnachten?"
             )
             form.description = (
-                f"Zit {aanmelding.get('voornaam', 'uw kind')} in groep 8? "
-                "Dan mag hij voor 2,50 euro ook blijven overnachten"
+                f"Zit {aanmelding.get('voornaam', 'je kind')} in groep 8? "
+                f"Dan mag {'hij' if aanmelding.get('geslacht') == 'M' else 'zij'} voor 2,50 euro ook blijven overnachten"
             )
 
     # Laat het formulier zien
@@ -295,7 +295,6 @@ def aanmelding_view(request, ordinal, url):
 
 
 def vrijwilliger_view(request):
-
     if request.method == "POST":
         form = VrijwilligerInschrijvenForm(request.POST)
 
@@ -306,8 +305,8 @@ def vrijwilliger_view(request):
             return render(request, "aanmelding_vrijwilliger_bedankt.html")
     else:
         if (
-            "aanmeldingen" in request.session
-            and len(request.session["aanmeldingen"]) > 0
+                "aanmeldingen" in request.session
+                and len(request.session["aanmeldingen"]) > 0
         ):
             aanmelding = request.session["aanmeldingen"][0]
             initial_data = {
@@ -465,7 +464,7 @@ def betaling_view(request):
                 ["vrijwilligers@mezzeveulespeule.nl"],
                 fail_silently=True,
                 html_message="(Deze email is bedoeld als backup, alle data komt ook nog als Excel bestand)"
-                + email_html,
+                             + email_html,
             )
 
         return render(request, "aanmelding_aangemeld.html")
@@ -473,7 +472,7 @@ def betaling_view(request):
         return render(request, "aanmelding_betaling_mislukt.html")
 
 
-def maak_betaling(request, bedrag: float) -> str:
+def maak_betaling(request, bedrag: float):
     payment = mollie_client.payments.create(
         {
             "amount": {"currency": "EUR", "value": "{0:.2f}".format(bedrag)},
