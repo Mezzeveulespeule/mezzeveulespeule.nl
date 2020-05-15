@@ -7,10 +7,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.mail import send_mail
 
-from .models import Aanmelding
-from .volunteer import VrijwilligerForm, process_volunteer_form
+from mvs.models import Aanmelding
+from mvs.apps.volunteer import VrijwilligerForm, process_volunteer_form
 from mollie.api.client import Client
-from .secrets import MOLLIE_API_KEY
+from mvs.secrets import MOLLIE_API_KEY
 
 mollie_client = Client()
 mollie_client.set_api_key(MOLLIE_API_KEY)

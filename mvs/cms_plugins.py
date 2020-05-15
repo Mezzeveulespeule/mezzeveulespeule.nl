@@ -3,7 +3,7 @@ from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 
 from django.db import models
-from .cms_apps import PhotosFolder
+from .apps.photos import PhotosFolder
 import datetime
 import random
 

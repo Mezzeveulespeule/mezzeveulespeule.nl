@@ -9,7 +9,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from .models import Vrijwilliger
+from mvs.models import Vrijwilliger
 
 
 class VrijwilligerForm(forms.ModelForm):
