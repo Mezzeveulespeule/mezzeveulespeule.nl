@@ -75,7 +75,7 @@ class VolunteerHook(CMSApp):
         # Show thank you message
         if "thanks" in request.session:
             del request.session["thanks"]
-            return render(request, "vrijwilliger_thanks.html")
+            return render(request, "volunteer_thanks.html")
 
         if request.method == "POST":
             # Validate form
@@ -90,4 +90,4 @@ class VolunteerHook(CMSApp):
             form = VolunteerForm()
 
         # Show form
-        return render(request, "vrijwilliger.html", {"form": form})
+        return render(request, "volunteer.html", {"form": form})
