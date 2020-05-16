@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% block content %}
+
+    <form method="POST" class="django" autocomplete="off">
+        {% csrf_token %}
+
+        {% block form_header %}{% endblock %}
+
+        <table>
+            {% for field in form %}
+                <tr>
+                    <th>
+                        {{ field.errors }}
+                        <span class="{% if field.field.required %}required{% endif %}"
+                        >{{ field.label_tag }}</span
+                        >
+                    </th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        {% block form_footer %}
+            <button type="submit">Opslaan</button>
+        {% endblock %}
+    </form>
+
+{% endblock %}

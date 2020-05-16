@@ -1,1 +1,1 @@
-from . import aanmelding, contact, volunteer, photos
+from . import signup, contact, volunteer, photos

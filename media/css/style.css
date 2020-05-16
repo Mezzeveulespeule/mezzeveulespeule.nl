@@ -7,20 +7,20 @@
 
 @font-face {
     font-family: 'Blokletters-Viltstift';
-    src:url('/media/fonts/Blokletters-Viltstift.ttf.woff') format('woff'),
-        url('/media/fonts/Blokletters-Viltstift.ttf.svg#Blokletters-Viltstift') format('svg'),
-        url('/media/fonts/Blokletters-Viltstift.ttf.eot'),
-        url('/media/fonts/Blokletters-Viltstift.ttf.eot?#iefix') format('embedded-opentype');
+    src: url('/media/fonts/Blokletters-Viltstift.ttf.woff') format('woff'),
+    url('/media/fonts/Blokletters-Viltstift.ttf.svg#Blokletters-Viltstift') format('svg'),
+    url('/media/fonts/Blokletters-Viltstift.ttf.eot'),
+    url('/media/fonts/Blokletters-Viltstift.ttf.eot?#iefix') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Blokletters-Balpen';
-    src:url('/media/fonts/Blokletters-Balpen.ttf.woff') format('woff'),
-        url('/media/fonts/Blokletters-Balpen.ttf.svg#Blokletters-Balpen') format('svg'),
-        url('/media/fonts/Blokletters-Balpen.ttf.eot'),
-        url('/media/fonts/Blokletters-Balpen.ttf.eot?#iefix') format('embedded-opentype');
+    src: url('/media/fonts/Blokletters-Balpen.ttf.woff') format('woff'),
+    url('/media/fonts/Blokletters-Balpen.ttf.svg#Blokletters-Balpen') format('svg'),
+    url('/media/fonts/Blokletters-Balpen.ttf.eot'),
+    url('/media/fonts/Blokletters-Balpen.ttf.eot?#iefix') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -39,8 +39,8 @@ body {
     border-style: solid;
     border-width: 5px;
     padding: 10px;
-    background-color:  rgba(255,255,255,0.85);
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
     margin: 10px 5px;
 }
 
@@ -49,7 +49,7 @@ header.box {
     border-top-left-radius: 25px;
     border-bottom-width: 0;
     margin-top: 14px;
-    border-color:  #71BF43;
+    border-color: #71BF43;
     display: flex;
 }
 
@@ -78,7 +78,6 @@ nav li {
     margin-left: 10px;
     margin-right: 10px;
     border-width: 2px;
-    border-width: 0;
     border-bottom: 2px solid transparent;
 
 }
@@ -88,7 +87,7 @@ nav li.selected, nav li:hover {
 }
 
 nav a {
-    vertical-align: -webkit-baseline-middle;
+    vertical-align: baseline;
     font-family: 'Blokletters-Viltstift', sans-serif;
     font-weight: 400;
     font-size: 15px;
@@ -151,7 +150,7 @@ aside {
     border: solid 5px #E39F15;
     border-top-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
     padding: 10px 10px 10px 10px;
     margin-top: 20px;
     margin-bottom: 40px;
@@ -184,6 +183,7 @@ aside img {
 .columns {
     display: flex;
 }
+
 .columns article {
     flex: 6;
 }
@@ -199,12 +199,9 @@ aside img {
 }
 
 .logos img {
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
     margin: 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-radius: 5px;
 }
 
 .forms .description {
@@ -221,7 +218,7 @@ aside img {
     height: 100%;
 }
 
-.field-wrapper ul, forms.django ul {
+.field-wrapper ul, form.django ul {
     width: 40%;
     display: inline-block;
     list-style-type: none;
@@ -256,6 +253,23 @@ form.django input[type=tel],
 form.django select,
 form.django textarea {
     width: 300px;
+}
+
+form ul {
+    margin-top: 10px;
+}
+
+span.required {
+    font-weight: bold;
+}
+
+span.required::after {
+    content: "*";
+}
+
+input[type=checkbox] {
+    width: 25px;
+    height: 25px;
 }
 
 th {

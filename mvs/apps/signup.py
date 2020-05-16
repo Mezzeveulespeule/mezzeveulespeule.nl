@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 
 from mvs.models import Aanmelding
-from mvs.apps.volunteer import VrijwilligerForm, process_volunteer_form
+from mvs.apps.volunteer import VolunteerForm, process_volunteer_form
 from mollie.api.client import Client
 from mvs.secrets import MOLLIE_API_KEY
 
@@ -16,7 +16,7 @@ mollie_client = Client()
 mollie_client.set_api_key(MOLLIE_API_KEY)
 
 
-class VrijwilligerInschrijvenForm(VrijwilligerForm):
+class VolunteerInschrijvenForm(VolunteerForm):
     description = """
     <p>Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen.
     Zonder vrijwilligers kunnen we de dagen niet organiseren. Heb je tijd om te helpen? Ook als je maar een dag of een dagdeel kunt, ben je van harte welkom.</p>
@@ -296,7 +296,7 @@ def aanmelding_view(request, ordinal, url):
 
 def vrijwilliger_view(request):
     if request.method == "POST":
-        form = VrijwilligerInschrijvenForm(request.POST)
+        form = VolunteerInschrijvenForm(request.POST)
 
         if form.is_valid():
             # Vrijwilliger opslaan
@@ -321,7 +321,7 @@ def vrijwilliger_view(request):
         else:
             initial_data = {}
 
-        form = VrijwilligerInschrijvenForm(initial=initial_data)
+        form = VolunteerInschrijvenForm(initial=initial_data)
 
     return render(request, "aanmelding.html", {"form": form})
 

@@ -1,18 +1,16 @@
-import html
-
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
 from django.conf.urls import url
 from django.core.mail import send_mail
-from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
+from mvs.apps.email_form import form_to_email_html
 from mvs.models import Vrijwilliger
 
 
-class VrijwilligerForm(forms.ModelForm):
+class VolunteerForm(forms.ModelForm):
     title = "Vrijwilligers"
 
     class Meta:
@@ -37,40 +35,10 @@ class VrijwilligerForm(forms.ModelForm):
         }
 
 
-def process_volunteer_form(form: VrijwilligerForm):
+def process_volunteer_form(form: VolunteerForm):
     form.save()
 
-    # Construct overview
-    email_html = """
-                    <style>
-                    th {
-                        text-align: right;
-                    }
-                    th, td {
-                        padding: 5px;
-                    }
-                    </style>
-                    <table>
-                    """
-
-    for field in form:
-        data = form.cleaned_data[field.name]
-
-        # Make human readable
-        if isinstance(data, bool):
-            print(data)
-            data = "Ja" if data else "Nee"
-
-        elif isinstance(data, QuerySet):
-            data = ", ".join(map(str, data))
-        else:
-            data = str(data)
-
-        email_html += (
-                "<tr><th>" + field.label + ":</th><td>" + html.escape(data) + "<td></tr>"
-        )
-
-    email_html += "</table>"
+    email_html = form_to_email_html(form)
 
     # Send to organization
     send_mail(
@@ -111,7 +79,7 @@ class VolunteerHook(CMSApp):
 
         if request.method == "POST":
             # Validate form
-            form = VrijwilligerForm(request.POST)
+            form = VolunteerForm(request.POST)
 
             if form.is_valid():
                 process_volunteer_form(form)
@@ -119,7 +87,7 @@ class VolunteerHook(CMSApp):
                 request.session["thanks"] = True
                 return HttpResponseRedirect(request.path)
         else:
-            form = VrijwilligerForm()
+            form = VolunteerForm()
 
         # Show form
         return render(request, "vrijwilliger.html", {"form": form})
