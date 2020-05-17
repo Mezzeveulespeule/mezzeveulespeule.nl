@@ -108,8 +108,8 @@ class Aanmelding(models.Model):
     kind6_leeftijd = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return "{0} {1} ({2})".format(
-            self.voornaam, self.achternaam, self.inschrijf_datum.strftime("%c")
+        return "{0} ({1})".format(
+            self.achternaam, self.inschrijf_datum.strftime("%c")
         )
 
     class Meta:
