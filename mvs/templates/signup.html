@@ -1,0 +1,18 @@
+{% extends "form.html" %}
+
+{% block form_header %}
+    <div style="border: 5px solid red; border-radius: 14px; margin: 25px; padding: 25px; text-align: center; font-size: 20pt;">
+        Dit inschrijfformulier is een concept. Het is nog niet mogelijk om in te schrijven!
+    </div>
+
+    <h2>{{ form.title }}</h2>
+
+    <p>{{ form.description|safe }}</p>
+
+{% endblock %}
+
+{% block form_footer %}
+    <div class="button-wrapper">
+        <button type="submit">Opgeven</button>
+    </div>
+{% endblock %}
