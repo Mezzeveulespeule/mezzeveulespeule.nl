@@ -3,6 +3,7 @@ from cms.apphook_pool import apphook_pool
 from django import forms
 from django.conf.urls import url
 from django.core.mail import send_mail
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -84,11 +85,26 @@ def signup_view(request):
     return render(request, "signup.html", {"form": form})
 
 
+def stats_view(request):
+    signups = Aanmelding.objects.count()
+    kids = Aanmelding.objects.aggregate(kids=Sum('kinderen'))['kids']
+
+    return render(request, 'content.html', {'content': f"""
+    <h1>Inschrijvingen tot nu toe</h1>
+    
+    <ul>
+        <li>Inschrijvingen: {signups}</li>
+        <li>Kinderen: {kids}</li>
+    </ul>
+    """})
+
+
 @apphook_pool.register
 class SignUpHook(CMSApp):
     name = "Aanmeldingsformulier"
 
     def get_urls(self, page=None, language=None, **kwargs):
         return [
+            url("stats", stats_view),
             url("", signup_view),
         ]
