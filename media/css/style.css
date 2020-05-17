@@ -134,6 +134,10 @@ article h2 {
     font-size: 15px;
 }
 
+article ul {
+    margin: 10px;
+}
+
 section.main p {
     margin: 1.6em 0;
 }
