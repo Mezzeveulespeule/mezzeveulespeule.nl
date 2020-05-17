@@ -47,7 +47,7 @@ class SignupForm(forms.ModelForm):
             "kind4_leeftijd": "Leeftijd vierde kind",
             "kind5_naam": "Naam vijfde kind",
             "kind5_leeftijd": "Leeftijd vijfde kind",
-            "opmerkingen": "Heeft u nog opmerkingen?",
+            "opmerkingen": "Heb je nog opmerkingen?",
         }
         widgets = {"geslacht": forms.RadioSelect}
 
