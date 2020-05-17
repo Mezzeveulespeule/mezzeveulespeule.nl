@@ -9,7 +9,7 @@
 
         <table>
             {% for field in form %}
-                <tr>
+                <tr id="row_{{ field.auto_id }}">
                     <th>
                         {{ field.errors }}
                         <span class="{% if field.field.required %}required{% endif %}"
