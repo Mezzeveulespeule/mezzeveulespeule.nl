@@ -260,11 +260,11 @@ form ul {
     margin-top: 10px;
 }
 
-span.required {
+label.required {
     font-weight: bold;
 }
 
-span.required::after {
+label.required::after {
     content: "*";
 }
 
@@ -274,11 +274,15 @@ input[type=checkbox] {
     vertical-align: middle;
 }
 
-th {
-    height: 40px;
+form.django label {
+    display: inline-block;
     width: 300px;
     text-align: left;
-    font-weight: normal;
+    vertical-align: middle;
+}
+
+form.django textarea {
+    vertical-align: top;
 }
 
 form.django li {

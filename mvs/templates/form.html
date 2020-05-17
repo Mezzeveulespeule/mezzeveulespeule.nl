@@ -7,19 +7,17 @@
 
         {% block form_header %}{% endblock %}
 
-        <table>
-            {% for field in form %}
-                <tr id="row_{{ field.auto_id }}">
-                    <th>
-                        {{ field.errors }}
-                        <span class="{% if field.field.required %}required{% endif %}"
-                        >{{ field.label_tag }}</span
-                        >
-                    </th>
-                    <td>{{ field }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% for field in form %}
+            <p id="row_{{ field.auto_id }}">
+                {{ field.errors }}
+                <label for="{{ field.auto_id }}"
+                       {% if field.field.required %}class="required"{% endif %}>{{ field.label }}</label>
+
+
+                {{ field }}
+            </p>
+        {% endfor %}
+
 
         {% block form_footer %}
             <button type="submit">Opslaan</button>
