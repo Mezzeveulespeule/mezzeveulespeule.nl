@@ -22,6 +22,9 @@ def form_to_email_html(form):
     for field in form:
         data = form.cleaned_data[field.name]
 
+        if data is None or data == '':
+            continue
+
         # Make human readable
         if isinstance(data, bool):
             print(data)
