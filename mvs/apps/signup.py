@@ -70,16 +70,27 @@ def signup_view(request):
             form.save()
 
             email_html = form_to_email_html(form)
+            message = f"Bedankt voor uw aanmelding, we zullen u spoedig informeren over het programma<br>{email_html}"
 
             send_mail(
                 subject="Inschrijvingsbewijs Mezzeveulespeule",
-                message=f"Bedankt voor uw aanmelding, we zullen u spoedig informeren over het programma<br>"
-                        f"{email_html}",
+                message=message,
                 from_email="info@mezzeveulespeule.nl",
                 recipient_list=[form.cleaned_data['email']],
                 fail_silently=True,
-                html_message=email_html,
+                html_message=message,
             )
+
+            # Backup
+            send_mail(
+                subject="Inschrijving Mezzeveulespeule",
+                message=message,
+                from_email=form.cleaned_data['email'],
+                recipient_list=["info@mezzeveulespeule.nl"],
+                fail_silently=True,
+                html_message=message,
+            )
+
             request.session["thanks"] = True
             return HttpResponseRedirect(request.path)
 
