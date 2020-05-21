@@ -20,7 +20,8 @@ class SignupForm(forms.ModelForm):
         model = Aanmelding
         fields = [
             'achternaam', 'adres', 'postcode', 'woonplaats',
-            'email', 'tel', 'tel2', 'kinderen',
+            'email', 'tel', 'tel2', 'team_naam',
+            'kinderen',
             'kind1_naam', 'kind1_leeftijd',
             'kind2_naam', 'kind2_leeftijd',
             'kind3_naam', 'kind3_leeftijd',
@@ -37,6 +38,7 @@ class SignupForm(forms.ModelForm):
             "email": "Wat is je e-mailadres?",
             "tel": "Op welk telefoonnummer kunnen we jullie bereiken?",
             "tel2": "Op welk tweede telefoonnummer kunnen we jullie bereiken?",
+            "team_naam": "Wat is jullie team naam?",
             "kinderen": "Hoeveel kinderen doen in jullie gezin mee?",
             "kind1_naam": "Naam eerste kind",
             "kind1_leeftijd": "Leeftijd eerste kind",

@@ -77,11 +77,13 @@ class Aanmelding(models.Model):
 
     adres = models.CharField(max_length=500)
     postcode = models.CharField(max_length=7)
-    woonplaats = models.CharField(max_length=100)
+    woonplaats = models.CharField(max_length=100, default="Bladel")
 
     email = models.EmailField()
     tel = models.CharField(max_length=100)
     tel2 = models.CharField(max_length=100, blank=True)
+
+    team_naam = models.CharField(max_length=100)
 
     opmerkingen = models.TextField(blank=True)
 
