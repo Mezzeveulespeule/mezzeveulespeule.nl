@@ -30,7 +30,7 @@ mollie-api-python==2.3.1
 oauthlib==3.1.0
 odfpy==1.4.1
 openpyxl==3.0.3
-Pillow==7.1.1
+Pillow==9.0.1
 psycopg2-binary==2.8.4
 pytz==2019.3
 PyYAML==5.3.1
