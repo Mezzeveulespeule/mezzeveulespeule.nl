@@ -1,17 +1,48 @@
-{% extends "form.html" %}
+{% extends "base.html" %}
+{% load cms_tags %}
 
-{% block form_header %}
-    <h2>{{ form.title }}</h2>
+{% block content %}
 
-    <p>{{ form.description|safe }}</p>
+<h2>{{form.title}}</h2>
 
-{% endblock %}
+<p>{{form.description}}</p>
 
-{% block form_footer %}
-    <p>Houd rekening met onze <a href="/algemene-voorwaarden" target="_blank">Algemene voorwaarden</a>
-        en onze <a href="/privacy" target="_blank">Privacyverklaring</a></p>
+<style>
+form ul {
+    margin-top: 10px;
+}
+input {
 
-    <div class="button-wrapper">
-        <button type="submit">Opgeven</button>
-    </div>
-{% endblock %}
+}
+table {
+    border-collapse: inherit;
+    border-spacing: 0 10px;
+}
+span {
+    font-weight: normal;
+}
+span.required {
+    font-weight: bold;
+}
+</style>
+<form method="POST" class="django" autocomplete="off">
+{% csrf_token %}
+
+<table>
+    {% for field in form %}
+    <tr>
+
+        <th>
+            {{field.errors}}
+            <span class="{% if field.field.required %}required{% endif %}">{{ field.label_tag}}</span>
+        </th>
+        <td>{{ field }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="button-wrapper">
+<button type="submit">Volgende</button>
+</div>
+</form>
+{% endblock content %}

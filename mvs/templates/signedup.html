@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+
+<style>
+
+button[type=submit] {
+    font-size: 14pt;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 20pt;
+}
+</style>
+
+<h2>Aanmelding {{ aangemeld_naam }} geslaagd!</h2>
+
+<p>Dankuwel voor het opgeven van uw kind.
+     We gaan er wederom een super editie van maken!
+     Mocht u nog een kind willen opgeven, dan vragen we u om het formulier nogmaals in te vullen. </p>
+
+<form method="POST" class="django">
+{% csrf_token %}
+
+<button type="submit" name="nog_een_kind" value="1">Nog een kind opgeven</button>
+
+<button type="submit" name="afsluiten">Afsluiten</button>
+
+</form>
+{% endblock content %}
