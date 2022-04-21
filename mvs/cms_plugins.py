@@ -1,11 +1,10 @@
-from cms.plugin_base import CMSPluginBase
-from cms.plugin_pool import plugin_pool
-from cms.models.pluginmodel import CMSPlugin
-
-from django.db import models
-from .apps.photos import PhotosFolder
 import datetime
 import random
+
+from cms.models.pluginmodel import CMSPlugin
+from cms.plugin_base import CMSPluginBase
+from cms.plugin_pool import plugin_pool
+from django.db import models
 
 
 class SideBox(CMSPlugin):
@@ -34,6 +33,7 @@ class PhotoPerDayPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super(PhotoPerDayPlugin, self).render(
             context, instance, placeholder)
+        from .mvs_apps.photos import PhotosFolder
 
         album = PhotosFolder(PhotosFolder.get_root(), '0. 25 jaar speule')
         day = int(datetime.datetime.now().timestamp() / 86400)

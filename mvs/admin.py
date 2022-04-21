@@ -1,13 +1,13 @@
-from django.contrib import admin
 from cms.extensions import PageExtensionAdmin
-
-from .models import ColorExtension, Dag, Taak, Aanmelding, Vrijwilliger
+from django.contrib import admin
 from django.forms import ModelForm
 from django.forms.widgets import TextInput
-
 from import_export import resources, fields
-from import_export.widgets import ManyToManyWidget
 from import_export.admin import ExportMixin
+from import_export.widgets import ManyToManyWidget
+
+from .cms_models import ColorExtension
+from .models import Dag, Taak, Aanmelding, Vrijwilliger
 
 
 class AanmeldingResource(resources.ModelResource):

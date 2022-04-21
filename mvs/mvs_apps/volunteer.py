@@ -6,8 +6,8 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from mvs.apps.email_form import form_to_email_html
 from mvs.models import Vrijwilliger
+from mvs.mvs_apps.email_form import form_to_email_html
 
 
 class VolunteerForm(forms.ModelForm):

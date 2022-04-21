@@ -1,7 +1,7 @@
 django-import-export
 psycopg2-binary
-Django<3
-mollie-api-python
+Django<=3.2 # https://docs.django-cms.org/en/latest/#django-python-compatibility-table
+
 # Django CMS
 django-cms
 djangocms-file

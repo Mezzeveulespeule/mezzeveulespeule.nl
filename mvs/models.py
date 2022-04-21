@@ -1,13 +1,4 @@
-from cms.extensions import PageExtension
-from cms.extensions.extension_pool import extension_pool
 from django.db import models
-
-
-class ColorExtension(PageExtension):
-    color = models.CharField(max_length=7)
-
-
-extension_pool.register(ColorExtension)
 
 
 class Dag(models.Model):
@@ -36,7 +27,13 @@ class Vrijwilliger(models.Model):
     tussenvoegsel = models.CharField(max_length=50, blank=True)
     achternaam = models.CharField(max_length=100)
 
-    geslacht = models.CharField(max_length=10, choices=(("M", "Man"), ("V", "Vrouw"),))
+    geslacht = models.CharField(
+        max_length=10,
+        choices=(
+            ("M", "Man"),
+            ("V", "Vrouw"),
+        ),
+    )
 
     adres = models.CharField(max_length=100)
     postcode = models.CharField(max_length=7)
@@ -73,45 +70,48 @@ scholen = [
 
 
 class Aanmelding(models.Model):
+    voornaam = models.CharField(max_length=100)
     achternaam = models.CharField(max_length=100)
-
+    geslacht = models.CharField(
+        max_length=1, default=None, choices=[("M", "Jongen"), ("F", "Meisje")]
+    )
+    klas = models.CharField(
+        max_length=1,
+        choices=[
+            ("1", "Groep 1"),
+            ("2", "Groep 2"),
+            ("3", "Groep 3"),
+            ("4", "Groep 4"),
+            ("5", "Groep 5"),
+            ("6", "Groep 6"),
+            ("7", "Groep 7"),
+            ("8", "Groep 8"),
+        ],
+    )
     adres = models.CharField(max_length=500)
     postcode = models.CharField(max_length=7)
-    woonplaats = models.CharField(max_length=100, default="Bladel")
+    woonplaats = models.CharField(max_length=100)
 
     email = models.EmailField()
-    tel = models.CharField(max_length=100)
+    tel1 = models.CharField(max_length=100)
     tel2 = models.CharField(max_length=100, blank=True)
+    school = models.CharField(max_length=100, default=None)
 
-    team_naam = models.CharField(max_length=100)
+    allergien = models.TextField()
+
+    groepsmaatje = models.CharField(max_length=100, blank=True)
+    groepsmaatje_school = models.CharField(max_length=100, blank=True)
+
+    overnachting = models.BooleanField(default=False)
 
     opmerkingen = models.TextField(blank=True)
 
     inschrijf_datum = models.DateTimeField(auto_now_add=True)
-
-    kinderen = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-
-    kind1_naam = models.CharField(max_length=100)
-    kind1_leeftijd = models.IntegerField()
-
-    kind2_naam = models.CharField(max_length=100, blank=True)
-    kind2_leeftijd = models.IntegerField(blank=True, null=True)
-
-    kind3_naam = models.CharField(max_length=100, blank=True)
-    kind3_leeftijd = models.IntegerField(blank=True, null=True)
-
-    kind4_naam = models.CharField(max_length=100, blank=True)
-    kind4_leeftijd = models.IntegerField(blank=True, null=True)
-
-    kind5_naam = models.CharField(max_length=100, blank=True)
-    kind5_leeftijd = models.IntegerField(blank=True, null=True)
-
-    kind6_naam = models.CharField(max_length=100, blank=True)
-    kind6_leeftijd = models.IntegerField(blank=True, null=True)
+    heeft_betaald = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{0} ({1})".format(
-            self.achternaam, self.inschrijf_datum.strftime("%c")
+        return "{0} {1} ({2})".format(
+            self.voornaam, self.achternaam, self.inschrijf_datum.strftime("%c")
         )
 
     class Meta:
