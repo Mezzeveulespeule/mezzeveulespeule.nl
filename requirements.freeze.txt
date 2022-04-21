@@ -4,7 +4,7 @@ defusedxml==0.6.0
 diff-match-patch==20181111
 Django==2.2.12
 django-classy-tags==1.0.0
-django-cms==3.7.1
+django-cms==3.7.4
 django-filer==1.7.0
 django-formtools==2.2
 django-import-export==2.0.2
