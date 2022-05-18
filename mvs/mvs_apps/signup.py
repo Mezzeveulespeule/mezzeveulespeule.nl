@@ -125,7 +125,7 @@ class GroepsmaatjeForm(forms.ModelForm):
 class OvernachtingForm(forms.ModelForm):
     url = "overnachting"
     title = "Overnachting voor groep 8"
-    description = "Zit uw kind is groep 8? Dan mag hij voor 2,50 euro extra ook blijven overnachten. "
+    description = "Zit uw kind is groep 8? Dan mag hij voor 3,50 euro extra ook blijven overnachten. "
 
     class Meta:
         model = Aanmelding
