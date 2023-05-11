@@ -9,7 +9,15 @@ from django.shortcuts import render
 from mvs.models import Aanmelding, Vrijwilliger
 
 
-class VrijwilligerVraagForm(forms.Form):
+class AutocompleteOffMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs["autocomplete"] = "off"
+
+
+class VrijwilligerVraagForm(AutocompleteOffMixin, forms.Form):
     url = "vrijwilliger"
     title = "Vrijwilligers"
     description = "Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen. We kunnen helaas niet zonder. Hebt u tijd om te helpen? Ook als u maar een dag of een dagdeel kunt, bent u van harte welkom."
@@ -25,7 +33,7 @@ class VrijwilligerVraagForm(forms.Form):
     )
 
 
-class VrijwilligerForm(forms.ModelForm):
+class VrijwilligerForm(AutocompleteOffMixin, forms.ModelForm):
     title = "Vrijwilligers"
 
     class Meta:
@@ -58,7 +66,7 @@ class VrijwilligerInschrijvenForm(VrijwilligerForm):
     )
 
 
-class AanmeldingBasisForm(forms.ModelForm):
+class AanmeldingBasisForm(AutocompleteOffMixin, forms.ModelForm):
     url = ""
     title = "Mezzeveulespeule Inschrijfformulier"
     heeft_allergien = forms.BooleanField(
@@ -95,7 +103,7 @@ class AanmeldingBasisForm(forms.ModelForm):
         widgets = {"geslacht": forms.RadioSelect}
 
 
-class AllergienForm(forms.ModelForm):
+class AllergienForm(AutocompleteOffMixin, forms.ModelForm):
     url = "allergien"
     title = "Allergieën en bijzonderheden"
 
@@ -107,7 +115,7 @@ class AllergienForm(forms.ModelForm):
         }
 
 
-class GroepsmaatjeForm(forms.ModelForm):
+class GroepsmaatjeForm(AutocompleteOffMixin, forms.ModelForm):
     url = "groepsmaatje"
     title = "Groepsmaatje"
     description = ""
@@ -122,7 +130,7 @@ class GroepsmaatjeForm(forms.ModelForm):
         }
 
 
-class OvernachtingForm(forms.ModelForm):
+class OvernachtingForm(AutocompleteOffMixin, forms.ModelForm):
     url = "overnachting"
     title = "Overnachting voor groep 8"
     description = "Zit uw kind is groep 8? Dan mag hij voor 3,50 euro extra ook blijven overnachten. "
@@ -133,7 +141,7 @@ class OvernachtingForm(forms.ModelForm):
         labels = {"overnachting": "Wil uw kind ook blijven overnachten?"}
 
 
-class OpmerkingenForm(forms.ModelForm):
+class OpmerkingenForm(AutocompleteOffMixin, forms.ModelForm):
     url = "opmerkingen"
     title = "Opmerkingen of vragen?"
 
