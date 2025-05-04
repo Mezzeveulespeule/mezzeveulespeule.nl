@@ -107,7 +107,7 @@ class Aanmelding(models.Model):
     opmerkingen = models.TextField(blank=True)
 
     inschrijf_datum = models.DateTimeField(auto_now_add=True)
-    heeft_betaald = models.BooleanField(default=False)
+    organisatie = models.BooleanField(default=False)
 
     def __str__(self):
         return "{0} {1} ({2})".format(
