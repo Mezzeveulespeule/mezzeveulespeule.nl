@@ -278,7 +278,7 @@ input[type=checkbox] {
     vertical-align: middle;
 }
 
-form.django label {
+form.django th label {
     display: inline-block;
     width: 300px;
     text-align: left;
