@@ -32,14 +32,7 @@ class VrijwilligerVraagForm(AutocompleteOffMixin, forms.Form):
         widget=forms.RadioSelect,
     )
 
-    organisatie = forms.ChoiceField(
-        label="Lijkt het u leuk om mee te doen in de organisatie?",
-        choices=[
-            ("ja", "Ja, u mag me benaderen"),
-            ("nee", "Nee"),
-        ],
-        widget=forms.RadioSelect,
-    )
+
 
 
 class VrijwilligerForm(AutocompleteOffMixin, forms.ModelForm):
@@ -53,7 +46,6 @@ class VrijwilligerForm(AutocompleteOffMixin, forms.ModelForm):
             "tel": "Telefoonnummer 1",
             "tel2": "Telefoonnummer 2",
             "ehbo": "Heeft u een EHBO diploma?",
-            "stage": "Bent u vrijwilliger voor een maatschappelijke stage?",
             "dagen": "Op welke dagen zou u (eventueel) kunnen komen helpen?",
             "taken": "Hebt u een voorkeur voor een bepaalde taak?",
             "eigen_kind": "Indien u een groep wilt begeleiden, wilt u uw eigen kind in de groep? (Geef de naam van de kinderen die u in de groep wil:)",
@@ -246,7 +238,6 @@ def signup_view(request, url):
                 return redirect_to(VrijwilligerVraagForm)
 
             elif isinstance(form, VrijwilligerVraagForm):
-                request.session['aanmelding']['organisatie'] = form.cleaned_data['organisatie'] == 'ja'
                 if form.cleaned_data["aanmelden"] == "ja":
                     return redirect_to(VrijwilligerInschrijvenForm)
                 else:

@@ -21,7 +21,6 @@ class VolunteerForm(forms.ModelForm):
             "tel": "Telefoonnummer 1",
             "tel2": "Telefoonnummer 2",
             "ehbo": "Heb je een EHBO diploma?",
-            "stage": "Ben je vrijwilliger voor een maatschappelijke stage?",
             "dagen": "Op welke dagen zou je (eventueel) kunnen komen helpen?",
             "taken": "Heb je een voorkeur voor een bepaalde taak?",
             "eigen_kind": "Indien je een groep wilt begeleiden, wil je jouw eigen kind in de groep? (Geef de naam van de kinderen die je in de groep wil:)",

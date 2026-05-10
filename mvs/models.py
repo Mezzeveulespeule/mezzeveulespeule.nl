@@ -49,7 +49,6 @@ class Vrijwilliger(models.Model):
     geboortedatum = models.DateField()
     tel = models.CharField(max_length=50)
     tel2 = models.CharField(max_length=50, blank=True)
-    stage = models.BooleanField()
 
     dagen = models.ManyToManyField(Dag, blank=True)
     taken = models.ManyToManyField(Taak, blank=True)
@@ -110,7 +109,6 @@ class Aanmelding(models.Model):
     opmerkingen = models.TextField(blank=True)
 
     inschrijf_datum = models.DateTimeField(auto_now_add=True)
-    organisatie = models.BooleanField(default=False)
 
     def __str__(self):
         return "{0} {1} ({2})".format(
