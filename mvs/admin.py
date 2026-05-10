@@ -26,9 +26,14 @@ class VrijwilligerResource(resources.ModelResource):
     class Meta:
         model = Vrijwilliger
 
-
 class VrijwilligerAdmin(ExportMixin, admin.ModelAdmin):
     resource_class = VrijwilligerResource
+
+class DagAdmin(admin.ModelAdmin):
+    list_display = ("naam", "volgorde")
+
+class TaakAdmin(admin.ModelAdmin):
+    list_display = ("naam", "volgorde")
 
 
 class ColorExtensionForm(ModelForm):
@@ -46,7 +51,7 @@ class ColorExtensionAdmin(PageExtensionAdmin):
 
 admin.site.register(ColorExtension, ColorExtensionAdmin)
 
-admin.site.register(Dag)
-admin.site.register(Taak)
+admin.site.register(Dag, DagAdmin)
+admin.site.register(Taak, TaakAdmin)
 admin.site.register(Aanmelding, AanmeldingAdmin)
 admin.site.register(Vrijwilliger, VrijwilligerAdmin)

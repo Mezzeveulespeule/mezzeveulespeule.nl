@@ -3,23 +3,26 @@ from django.db import models
 
 class Dag(models.Model):
     naam = models.CharField(max_length=100)
+    volgorde = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.naam
 
     class Meta:
         verbose_name_plural = "Dagen"
-        ordering = ("id",)
+        ordering = ("volgorde",)
 
 
 class Taak(models.Model):
     naam = models.CharField(max_length=100)
+    volgorde = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.naam
 
     class Meta:
         verbose_name_plural = "Taken"
+        ordering = ["volgorde"]
 
 
 class Vrijwilliger(models.Model):
