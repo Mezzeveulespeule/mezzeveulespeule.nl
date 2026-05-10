@@ -20,7 +20,7 @@ class AutocompleteOffMixin:
 class VrijwilligerVraagForm(AutocompleteOffMixin, forms.Form):
     url = "vrijwilliger"
     title = "Vrijwilligers"
-    description = "Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen. We kunnen helaas niet zonder. Hebt u tijd om te helpen? Ook als u maar een dag of een dagdeel kunt, bent u van harte welkom."
+    description = "Zoals elk jaar zijn we weer op zoek naar vrijwilligers om ons te helpen tijdens de dagen. We kunnen helaas niet zonder. Hebt u tijd om te helpen? Ook als u een dag kunt, bent u van harte welkom."
 
     aanmelden = forms.ChoiceField(
         label="Kunt u komen helpen?",
