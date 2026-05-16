@@ -23,7 +23,7 @@ djangocms-text-ckeditor==5.0.1
 easy-thumbnails==2.8.1
 et-xmlfile==1.1.0
 html5lib==1.1
-lxml==4.8.0
+lxml==4.9.1
 MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.0.9
