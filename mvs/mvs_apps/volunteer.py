@@ -44,7 +44,7 @@ def process_volunteer_form(form: VolunteerForm):
         subject="Nieuwe Vrijwilliger",
         body="Er is een nieuwe vrijwilliger aangemeld.",
         from_email="noreply@paulwagener.nl",
-        reply_to="info@mezzeveulespeule.nl",
+        reply_to=["info@mezzeveulespeule.nl"],
         to=["vrijwilligers@mezzeveulespeule.nl"],
     )
     msg.attach_alternative(email_html, "text/html")
@@ -63,7 +63,7 @@ def process_volunteer_form(form: VolunteerForm):
         subject="Aanmelding Vrijwilliger",
         body="Bedankt voor je aanmelding!",
         from_email="noreply@paulwagener.nl",
-        reply_to="info@mezzeveulespeule.nl",
+        reply_to=["info@mezzeveulespeule.nl"],
         to=[volunteer_email],
     )
     msg.attach_alternative(volunteer_html, "text/html")

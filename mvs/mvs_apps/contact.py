@@ -40,7 +40,7 @@ class ContactHook(CMSApp):
                     body=email_html,
                     from_email="noreply@paulwagener.nl",
                     to=["info@mezzeveulespeule.nl"],
-                    reply_to=form.cleaned_data['email'],
+                    reply_to=[form.cleaned_data['email']],
                 )
                 msg.attach_alternative(email_html, "text/html")
                 msg.send()
