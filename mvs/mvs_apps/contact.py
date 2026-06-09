@@ -1,8 +1,10 @@
+from email.message import EmailMessage
+
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
 from django.conf.urls import url
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render
 
 from mvs.mvs_apps.email_form import form_to_email_html
@@ -33,27 +35,15 @@ class ContactHook(CMSApp):
             if form.is_valid():
                 email_html = form_to_email_html(form)
 
-                # Send to organization
-                send_mail(
+                msg = EmailMultiAlternatives(
                     subject=form.cleaned_data['subject'],
-                    message=email_html,
-                    from_email=form.cleaned_data['email'],
-                    recipient_list=["info@mezzeveulespeule.nl"],
-                    fail_silently=True,
-                    html_message=email_html,
+                    body=email_html,
+                    from_email="noreply@paulwagener.nl",
+                    to=["info@mezzeveulespeule.nl"],
+                    reply_to=form.cleaned_data['email'],
                 )
-
-                # Send copy to volunteer
-                send_mail(
-                    subject=form.cleaned_data['subject'],
-                    message=email_html,
-                    from_email="info@mezzeveulespeule.nl",
-                    recipient_list=[form.cleaned_data["email"]],
-                    fail_silently=True,
-                    html_message="<h1>Bedankt voor uw bericht</h1>"
-                                 + "<p>We zullen er zo spoedig mogelijk op reageren!</p>"
-                                 + email_html,
-                )
+                msg.attach_alternative(email_html, "text/html")
+                msg.send()
 
                 return render(request, "contact_thanks.html")
 

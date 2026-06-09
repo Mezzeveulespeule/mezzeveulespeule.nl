@@ -2,7 +2,7 @@ from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
 from django.conf.urls import url
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -40,27 +40,34 @@ def process_volunteer_form(form: VolunteerForm):
     email_html = form_to_email_html(form)
 
     # Send to organization
-    send_mail(
-        "Nieuwe Vrijwilliger",
-        email_html,
-        "info@mezzeveulespeule.nl",
-        ["vrijwilligers@mezzeveulespeule.nl"],
-        fail_silently=True,
-        html_message=email_html,
+    msg = EmailMultiAlternatives(
+        subject="Nieuwe Vrijwilliger",
+        body="Er is een nieuwe vrijwilliger aangemeld.",
+        from_email="noreply@paulwagener.nl",
+        reply_to="info@mezzeveulespeule.nl",
+        to=["vrijwilligers@mezzeveulespeule.nl"],
     )
+    msg.attach_alternative(email_html, "text/html")
+    msg.send(fail_silently=True)
 
     # Send copy to volunteer
     volunteer_email = form.cleaned_data["email"]
-    send_mail(
-        "Aanmelding Vrijwilliger",
-        "Bedankt voor je aanmelding!",
-        "info@mezzeveulespeule.nl",
-        [volunteer_email],
-        fail_silently=True,
-        html_message="<h1>Aanmelding Vrijwillliger</h1>"
-                     + "<p>Bedankt voor je aanmelding!</p>"
-                     + email_html,
+
+    volunteer_html = (
+        "<h1>Aanmelding Vrijwilliger</h1>"
+        "<p>Bedankt voor je aanmelding!</p>"
+        f"{email_html}"
     )
+
+    msg = EmailMultiAlternatives(
+        subject="Aanmelding Vrijwilliger",
+        body="Bedankt voor je aanmelding!",
+        from_email="noreply@paulwagener.nl",
+        reply_to="info@mezzeveulespeule.nl",
+        to=[volunteer_email],
+    )
+    msg.attach_alternative(volunteer_html, "text/html")
+    msg.send(fail_silently=True)
 
 
 @apphook_pool.register
