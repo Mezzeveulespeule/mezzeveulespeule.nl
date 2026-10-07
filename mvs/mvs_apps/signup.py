@@ -1,7 +1,7 @@
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
-from django.conf.urls import url
+from django.urls import re_path
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -299,6 +299,6 @@ class SignUpHook(CMSApp):
 
         # replace this with the path to your application's URLs module
         return [
-            url(r"^aangemeld", signedup_view),
-            url(r"^(.*)", signup_view),
+            re_path(r"^aangemeld", signedup_view),
+            re_path(r"^(.*)", signup_view),
         ]

@@ -1,12 +1,15 @@
-django-import-export
+Django>=5.2,<5.3
 psycopg2-binary
-Django<=3.2 # https://docs.django-cms.org/en/latest/#django-python-compatibility-table
+django-import-export
 
 # Django CMS
-django-cms<=3.10
-djangocms-file<=3.0
-django-filer==2.2
-djangocms-link<=3.0
-djangocms-text-ckeditor<=5.0.1
-djangocms-picture<=4.0.0
-djangocms-redirect<=0.6.0
+django-cms>=5.1,<6
+django-filer
+djangocms-admin-style
+djangocms-alias
+djangocms-file
+djangocms-link
+djangocms-picture
+djangocms-redirect
+djangocms-text
+easy-thumbnails

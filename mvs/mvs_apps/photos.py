@@ -5,7 +5,7 @@ import re
 
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
-from django.conf.urls import url
+from django.urls import re_path
 from django.shortcuts import render
 
 import mvs.settings as settings
@@ -134,5 +134,5 @@ class FotosHook(CMSApp):
     def get_urls(self, page=None, language=None, **kwargs):
         # replace this with the path to your application's URLs module
         return [
-            url(r'^(.+)', fotos_view),
+            re_path(r'^(.+)', fotos_view),
         ]

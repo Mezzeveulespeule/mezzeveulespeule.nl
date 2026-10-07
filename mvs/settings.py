@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     "filer",
     "djangocms_file",
     "djangocms_link",
-    "djangocms_text_ckeditor",
+    "djangocms_text",
     "djangocms_picture",
+    "djangocms_alias",
     "djangocms_redirect",
     # MVS
     "easy_thumbnails",
@@ -136,7 +137,6 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 

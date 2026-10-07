@@ -1,7 +1,7 @@
 from cms.app_base import CMSApp
 from cms.apphook_pool import apphook_pool
 from django import forms
-from django.conf.urls import url
+from django.urls import re_path
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -75,7 +75,7 @@ class VolunteerHook(CMSApp):
     name = "Vrijwilligers"
 
     def get_urls(self, page=None, language=None, **kwargs):
-        return [url(r"", self.view)]
+        return [re_path(r"", self.view)]
 
     def view(self, request):
         # Show thank you message

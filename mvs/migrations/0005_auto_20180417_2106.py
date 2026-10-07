@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.utils.datetime_safe
+import datetime
 
 
 class Migration(migrations.Migration):
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aanmelding',
             name='inschrijf_datum',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.datetime_safe.datetime.now),
+            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime.now),
             preserve_default=False,
         ),
         migrations.AlterField(
